@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Marcin Benke" />
+  <title>Programowanie Funkcyjne</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="https://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  type="text/javascript"></script>
+  <script src="https://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Programowanie Funkcyjne</h1>
+  <p class="subtitle">Poznajemy Haskell</p>
+  <p class="author">
+Marcin Benke
+  </p>
+  <p class="date">Wykład 1, 23.02.2026</p>
+</div>
+<div id="obietnica" class="title-slide slide section level1">
+<h1>Obietnica</h1>
+<blockquote>
+<p>Lisp is worth learning for […] the profound enlightenment experience
+you will have when you finally get it.<br/> That experience will make
+you a better programmer for the rest of your days,even if you never
+actually use Lisp […]<br/> the same can be said of Haskell, and for very
+similar reasons.</p>
+</blockquote>
+<p>— Eric S. Raymond, <em>How to Become a Hacker</em></p>
+<ul>
+<li></li>
+</ul>
+<blockquote>
+<p>Here’s my recipe for programming success: […] learn at least a half
+dozen programming languages.<br/ > Include one […] that emphasizes
+functional abstraction (like Lisp or ML or Haskell).</p>
+</blockquote>
+<p>— Peter Norvig <em>Teach Yourself Programming in Ten Years</em></p>
+<ul>
+<li></li>
+</ul>
+<p>Ten przedmiot da uczestnikom nowe spojrzenie na programowanie i
+uczyni ich lepszymi programistami.<br/></p>
+<p>Oczywiście wymaga to zaangażowania i wysiłku.</p>
+</div>
+<div id="dlaczego-haskell" class="title-slide slide section level2">
+<h1>Dlaczego Haskell?</h1>
+<p>Programowanie funkcyjne nie jest już niszą akademicką:</p>
+<p><strong>W przemyśle:</strong></p>
+<ul>
+<li>React/Redux (Facebook) - funkcyjne zarządzanie stanem</li>
+<li>WhatsApp - Erlang (funkcyjny) obsługuje miliardy wiadomości</li>
+<li>Jane Street - trading wysokich częstotliwości w OCaml</li>
+<li>Shopify - przetwarzanie zamówień w Elixirze</li>
+<li>Blockchain/Smart contracts (Ethereum: Core Solidity, Plutus dla
+Cardano)</li>
+</ul>
+<p><strong>Umiejętności transferowalne:</strong></p>
+<ul>
+<li>Myślenie deklaratywne</li>
+<li>Niemutowalne struktury danych</li>
+<li>Kompozycjonalność</li>
+</ul>
+<p>Wiele języków imperatywnych włącza elementy funkcyjne</p>
+</div>
+
+<div id="trochę-historii" class="title-slide slide section level2">
+<h1>Trochę Historii</h1>
+<p>Chociaż programowanie funkcyjne stało się na szerszą skalę popularne
+dopiero w tym stuleciu,<br/> to jego korzenie sięgają stu lat
+wstecz:</p>
+<ul>
+<li>rachunek kombinatorów (funkcji): Schönfinkel 1924, Curry 1929</li>
+<li>rachunek lambda (funkcji anonimowych): Church 1930</li>
+<li>(można sięgnąć dalej, np. Frege 1893)</li>
+</ul>
+<p>W 1928, jako kontynuację swego słynnego programu, David Hilbert
+wysunął następujący problem:</p>
+<blockquote>
+<p>Czy istnieje algorytm, który potrafi odpowiedzieć, czy dana formuła
+logiczna (pierwszego rzędu) jest prawdziwa?</p>
+</blockquote>
+<p>Aby odpowiedzieć na to pytanie, potrzebna jest formalizacja pojęcia
+“algorytmu” i szerzej “obliczalności”. <br /> W latach 1930-tych
+zaproponowano dwie takie formalizacje:</p>
+<ul>
+<li>funkcje obliczalne Alonzo Churcha (1935) oraz</li>
+<li>maszyny Turinga (1936).</li>
+</ul>
+</div>
+<div id="das-entscheidungsproblem---stawki-były-wysokie"
+class="slide section level3">
+<h1>Das Entscheidungsproblem - stawki były wysokie!</h1>
+<p>Hilbert zapytał: “Czy matematyka jest mechaniczna?”</p>
+<p><strong>Gdyby odpowiedź była TAK:</strong></p>
+<ul>
+<li>Wszystkie twierdzenia matematyczne można by udowodnić
+algorytmem</li>
+<li>Matematycy staliby się zbędni 😱</li>
+<li>Maszyny mogłyby odkrywać wszystkie prawdy matematyczne</li>
+</ul>
+<p>(czy coś Wam to przypomina?)</p>
+<p><strong>Church i Turing pokazali: NIE!</strong></p>
+<ul>
+<li>Istnieją problemy nierozstrzygalne;</li>
+<li>przy okazji zdefiniowali czym jest “obliczenie”</li>
+<li>oraz dali nam dwa fundamentalnie różne modele myślenia o nim</li>
+</ul>
+<p><strong>Pytanie do zastanowienia:</strong> Gdybyś żył w 1936 i musiał
+wymyślić “co to znaczy obliczać” - jak byś to zdefiniował? 🤔</p>
+</div>
+<div id="podejścia-churcha-i-turinga" class="slide section level3">
+<h1>Podejścia Churcha i Turinga</h1>
+<p>Dlaczego wszyscy znają Turinga a mało kto Churcha?</p>
+<ul>
+<li>Maszyna Turinga była bliska ówczesnemu rozumieniu maszyn
+liczących;</li>
+<li>maszynę w której krok obliczenia modyfikuje komórkę pamięci łatwo
+zrealizowac sprzętowo.</li>
+<li>Łatwiej ją też zrozumieć na niskim poziomie (poszczególnych
+kroków);</li>
+<li>trudniej jednak ogarnąć w całości jak działa dana maszyna.</li>
+</ul>
+</div>
+<div id="maszyna-turinga" class="slide section level3">
+<h1>Maszyna Turinga</h1>
+<p><span class="math inline">\(M= \langle Q, \Gamma, B, \delta, q_0, F
+\rangle\)</span> gdzie:</p>
+<ul>
+<li>Q jest zbiorem stanów</li>
+<li><span class="math inline">\(\Gamma\)</span> jest alfabetem
+taśmowym</li>
+<li><span class="math inline">\(B\in \Gamma\)</span> to wyróżniony
+symbol pusty
+<!-- - $\Sigma\subseteq\Gamma\setminus \{B\}$ to alfabet wejściowy --></li>
+<li><span class="math inline">\(q_0\)</span> to stan poczatkowy</li>
+<li><span class="math inline">\(\delta: Q\times\Gamma\to
+Q\times\Gamma\times\{L,R\}\)</span> to funkcja przejścia<br/> w
+zależności od bieżącego stanu i symbolu na taśmie określa nowy stan i
+symbol oraz w którą stronę przesuwa się głowica.</li>
+</ul>
+</div>
+<div id="dodawanie---maszyna-turinga" class="slide section level3">
+<h1>Dodawanie - Maszyna Turinga</h1>
+<p>Reprezentacja: liczby są zapisane w postaci ciągu jedynek
+rozdzielonych 0</p>
+<p>Wejście: <span class="math inline">\(B1^m01^nB\)</span></p>
+<p>Wyjście: <span class="math inline">\(B1^{m+n}BB\)</span></p>
+<div class="float">
+<img
+src="https://scanftree.com/automata/images/turing_machine/turing_machine_state_diagram_for_adder.png"
+alt="MT dla dodawania" />
+<div class="figcaption">MT dla dodawania</div>
+</div>
+<p>Jak to działa?</p>
+</div>
+<div id="dodawanie---maszyna-turinga-intuicja"
+class="slide section level3">
+<h1>Dodawanie - Maszyna Turinga (intuicja)</h1>
+<p><strong>Strategia:</strong> Przekształć <code>111 0 11</code> →
+<code>11111</code></p>
+<p><strong>Algorytm:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Znajdź separator (0)</li>
+<li>Zastąp go jedynką → teraz mamy <code>111 1 11</code></li>
+<li>Idź do końca drugiej liczby</li>
+<li>Usuń ostatnią jedynkę (bo “przesunęliśmy” ją)</li>
+<li>Wynik: <code>11111</code> = 5</li>
+</ol>
+<p>Zauważmy: to jest <em>bardzo</em> niskopoziomowe</p>
+<p><a
+href="https://turingmachine.io?import-gist=a8874822513d46b5ac0633fec6df1746">turingmachine.io</a>
+<img src="turingmachine-qr.png" /></p>
+<p>Ćwiczenie: stwórz maszynę dla mnożenia.</p>
+</div>
+<div id="mnożenie---maszyna-turinga" class="slide section level3">
+<h1>Mnożenie - Maszyna Turinga</h1>
+<!--
+ Wejście: $B0^mC0^nB$; Wyjście: $B0^{m*n}B$
+![](https://media.geeksforgeeks.org/wp-content/uploads/2222-1.png)
+-->
+<p>Wejście: <span class="math inline">\(B1^m01^nB\)</span>; Wyjście:
+<span class="math inline">\(B1^{m*n}B\)</span></p>
+<p>turingmachine.io (i poniższy screenshot) używają<code>|,*</code>
+zamiast 1,0</p>
+<p><img src="multiplierMT.png" /></p>
+</div>
+<div id="zagadka" class="slide section level3">
+<h1>Zagadka</h1>
+<table>
+<thead>
+<tr>
+<th>Stan</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1RB</td>
+<td>1LC</td>
+</tr>
+<tr>
+<td>B</td>
+<td>1RC</td>
+<td>1RB</td>
+</tr>
+<tr>
+<td>C</td>
+<td>1RD</td>
+<td>0LE</td>
+</tr>
+<tr>
+<td>D</td>
+<td>1LA</td>
+<td>1LD</td>
+</tr>
+<tr>
+<td>E</td>
+<td>HALT</td>
+<td>0LA</td>
+</tr>
+</tbody>
+</table>
+<p>Co zrobi ta maszyna na pustej taśmie (same 0)?</p>
+<p>Wskazówka: 47 176 870</p>
+</div>
+
+<div id="zagadka-1" class="title-slide slide section level2">
+<h1>Zagadka</h1>
+<table>
+<thead>
+<tr>
+<th>Stan</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1RB</td>
+<td>0LD</td>
+</tr>
+<tr>
+<td>B</td>
+<td>1RC</td>
+<td>0RF</td>
+</tr>
+<tr>
+<td>C</td>
+<td>1LC</td>
+<td>1LA</td>
+</tr>
+<tr>
+<td>D</td>
+<td>0LE</td>
+<td>HALT</td>
+</tr>
+<tr>
+<td>E</td>
+<td>1LF</td>
+<td>0RB</td>
+</tr>
+<tr>
+<td>F</td>
+<td>0RC</td>
+<td>0RE</td>
+</tr>
+</tbody>
+</table>
+<p>Co zrobi ta maszyna na pustej taśmie (same 0)?</p>
+<p>Wskazówka: 10^^15</p>
+</div>
+
+<div id="problem-z-maszyną-turinga"
+class="title-slide slide section level2">
+<h1>Problem z maszyną Turinga</h1>
+<p><strong>Eksperyment myślowy:</strong> Napisz MT, która sprawdza czy
+liczba jest pierwsza.</p>
+<p>Potrzebujesz:</p>
+<ul>
+<li>Stanów na pętlę zewnętrzną (dzielniki)</li>
+<li>Stanów na pętlę wewnętrzną (dzielenie)</li>
+<li>Stanów na porównania</li>
+<li>Stanów na kopiowanie liczb w pamięci…</li>
+</ul>
+<p><strong>Wynik:</strong> Setki stanów dla prostego algorytmu! 😱</p>
+<p><strong>Kierunki rozwiązań:</strong></p>
+<ul>
+<li>von Neumann/Princeton: imperatywnie ale na wyższym poziomie (C,
+Java,Python)</li>
+<li>Church: rachunek funkcji (λ, kombinatory)</li>
+<li>hybrydowe: funkcyjne na wysokim poziomie, kompilacja na instrukcje
+niskiego (Haskell)</li>
+</ul>
+</div>
+
+<div id="od-turinga-do-churcha---zmiana-perspektywy"
+class="title-slide slide section level2">
+<h1>Od Turinga do Church’a - zmiana perspektywy</h1>
+<p><strong>Maszyna Turinga (imperatywna):</strong></p>
+<pre><code>STAN: A, TAŚMA: [1,1,0,1,_,_], POZYCJA: 3
+  ↓ (wykonaj krok)
+STAN: B, TAŚMA: [1,1,1,1,_,_], POZYCJA: 4
+  ↓ (wykonaj krok)
+...</code></pre>
+<p><strong>Rachunek funkcji (deklaratywna):</strong></p>
+<p>“2” to operacja zastosowania funkcji dwa razy:</p>
+<pre><code>   2 f x = f(f(x))</code></pre>
+<p>“dodaj 2 i 3” to:</p>
+<pre><code>   (2+3) f x = 2 f (3 f x)
+             = f(f(f(f(f(x)))))
+             = 5 f x</code></pre>
+<p><strong>Kluczowa różnica:</strong></p>
+<ul>
+<li>MT: <em>jak</em> coś obliczyć krok po kroku</li>
+<li>Church: <em>czym</em> jest wynik jako przekształcenie</li>
+</ul>
+</div>
+
+<div id="arytmetyka---rachunek-funkcji"
+class="title-slide slide section level2">
+<h1>Arytmetyka - rachunek funkcji</h1>
+<p>Podstawowa konstrukcja: zastosowanie funkcji do argumentu -
+<code>f(x)</code> albo krócej: <code>f x</code></p>
+<p><strong>Liczby naturalne - idea:</strong> liczba n jest
+reprezentowana przez n-krotne powtórzenie funkcji <span
+class="math display">\[ n\ s\ z = s^n z \]</span></p>
+<p>np. <span class="math inline">\(2\ s\ z = s(s\ z)\)</span></p>
+<p><strong>Inna notacja:</strong> <span class="math inline">\(\lambda
+x.e\)</span> (Javascript: <code>(x)=&gt;e</code>)</p>
+<p><span class="math display">\[2 = \lambda s.\lambda z.s(s\
+z)\]</span></p>
+<p><span class="math display">\[2 = \lambda s\ z.s(s\ z)\]</span></p>
+<p>Tekstowo:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>two <span class="ot">=</span> \s z <span class="ot">-&gt;</span> s(s z)</span></code></pre></div>
+<p>albo</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>two s z <span class="ot">=</span> s(s z)</span></code></pre></div>
+<p>W Javascript napisalibyśmy</p>
+<pre><code>const two = (s, z) =&gt; s(s(z))</code></pre>
+</div>
+
+<div id="arytmetyka---mnożenie-z-intuicją"
+class="title-slide slide section level2">
+<h1>Arytmetyka - mnożenie (z intuicją)</h1>
+<p>Mnożenie: <span class="math inline">\((m * n)\ f\ x = m (n\ f)
+x\)</span></p>
+<p><strong>Rozbicie na etapy - mnożenie 3 × 2:</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">-- Chcemy: 3 × 2 = 6</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">-- Czyli: zastosuj f sześć razy</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">-- Krok 1: Co to znaczy &quot;2&quot;?</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="dv">2</span> f x <span class="ot">=</span> f (f x)           <span class="co">-- zastosuj f dwa razy</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">-- Krok 2: Co to znaczy &quot;3&quot;?</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="dv">3</span> g y <span class="ot">=</span> g (g (g y))       <span class="co">-- zastosuj g trzy razy</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">-- Krok 3: Mnożenie</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="dv">3</span> × <span class="dv">2</span> <span class="ot">=</span> λf<span class="op">.</span>λx<span class="op">.</span> <span class="dv">3</span> (<span class="dv">2</span> f) x</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      <span class="ot">=</span> λf<span class="op">.</span>λx<span class="op">.</span> (<span class="dv">2</span> f) ((<span class="dv">2</span> f) ((<span class="dv">2</span> f) x))</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      <span class="ot">=</span> λf<span class="op">.</span>λx<span class="op">.</span> f(f(f(f(f(f(x))))))</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>      <span class="ot">=</span> <span class="dv">6</span></span></code></pre></div>
+<p><strong>Intuicja:</strong> “3*2” = “3 grupy po 2 aplikacje f” = 6
+aplikacji f</p>
+<p>(na marginesie: “m*n” to złożenie funkcji m i n)</p>
+<p>Idąc dalej tym tropem można zdefiniować potęgowanie, test na
+zero,<br/> rekurencję (iteracja jest zakodowana przez same
+liczby).<br/></p>
+<p>W efekcie możemy zdefiniować każdą funkcję obliczalną.</p>
+</div>
+
+<div id="kombinatory" class="title-slide slide section level2">
+<h1>Kombinatory</h1>
+<p>Kombinator to funkcja, która “kombinuje” swoje argumenty, np.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="dt">I</span> x <span class="ot">=</span> x</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>two f x <span class="ot">=</span> f(f x)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>add m n f x <span class="ot">=</span> m f (n f x)</span></code></pre></div>
+<!-- Z kolei `four = add two two` jest kombinatorem o ile `add` i `two` potraktować jako stałe (zostały wcześniej zdefiniowane). -->
+<p>Fundamentalne odkryciem Schönfinkela było, że każdy kombinator da się
+wyrazić przy pomocy tych dwóch: 🤯</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="dt">S</span> x y z <span class="ot">=</span> x z (y z)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="dt">K</span> x y <span class="ot">=</span> x</span></code></pre></div>
+<p>na przykład</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="dt">I</span> <span class="ot">=</span> <span class="dt">S</span> <span class="dt">K</span> <span class="dt">K</span>              <span class="co">-- S K K z = K z (K z) = z = I z</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>two <span class="ot">=</span> <span class="dt">S</span> (<span class="dt">S</span> (<span class="dt">K</span> <span class="dt">S</span>) <span class="dt">K</span>) <span class="dt">I</span></span></code></pre></div>
+<p>oczywiście programowanie w ten sposób jest podobnie niewygodne jak
+maszyny Turinga, lepiej</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="dt">B</span> x y z <span class="ot">=</span> x(y z)       <span class="co">-- B = S (K S) K</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>one <span class="ot">=</span> <span class="dt">I</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">succ</span> <span class="ot">=</span> <span class="dt">S</span> <span class="dt">B</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>add <span class="ot">=</span> <span class="dt">B</span> <span class="dt">S</span> (<span class="dt">B</span> <span class="dt">B</span>)</span></code></pre></div>
+<p>…a jeszcze lepiej dopasować zestaw kombinatorów do potrzeb.</p>
+<p>Uwaga notacyjna: z wielkiej litery piszę tu kombinatory
+“historyczne”. W Haskellu poczet liter ma inne znaczenie.</p>
+</div>
+<div id="kombinatory-i-ich-argumenty" class="slide section level3">
+<h1>Kombinatory i ich argumenty</h1>
+<p><strong>K</strong> <em>(Konstanzfunktion, producent funkcji
+stałych)</em></p>
+<pre><code>K x y = x</code></pre>
+<ul>
+<li><code>K</code> bez argumentów nie redukuje się</li>
+<li><code>K x</code> - też ma za mało argumentów, ale reprezentuje
+funkcję stałą <code>f(y) = x</code></li>
+<li><code>K x y = x</code> - dokładnie dwa argumenty!</li>
+<li><code>K x y z = (K x y) z = x z</code> - dwa pierwsze argumenty
+uzyte, reszta zostaje</li>
+</ul>
+<p><strong>S</strong> <em>(VerSchmelzungsfunktion,
+sklejacz/rozdzielacz)</em></p>
+<pre><code>S f g x = f x (g x)    -- przekaż x zarówno do f jak i g</code></pre>
+<p>Przykład:</p>
+<pre><code>S (+) (*2) 3 = (+) 3 ((*2) 3)
+             = 3 + 6
+             = 9</code></pre>
+<p>W tym sensie S jest rozdzielaczem, Schönfinkel widział sklejenie:
+<code>f x(g x) = S f g x</code></p>
+</div>
+<div id="rachunek-lambda" class="slide section level3">
+<h1>Rachunek lambda</h1>
+<p>Kombinatory są funkcjami nazwanymi, podobny efekt można uzyskać
+używając funkcji anonimowych</p>
+<p><span class="math display">\[ M ::= x \mid M(M) \mid \lambda x.M
+\]</span></p>
+<p>Reguła obliczenia (tzw. beta-redukcja):</p>
+<p><span class="math display">\[ (\lambda x.M)N \to M[N/x] \]</span>
+gdzie <span class="math inline">\(M[N/x]\)</span> oznacza term <span
+class="math inline">\(M\)</span>, w którym wolne wystapienia <span
+class="math inline">\(x\)</span> zastąpiono przez <span
+class="math inline">\(N\)</span></p>
+<p>na przykład</p>
+<p><span class="math display">\[ (\lambda x.\lambda y.x)(\lambda x.x)
+\to (\lambda y.x)[(\lambda x.x)/x] = \lambda y.\lambda x. x
+\]</span></p>
+<p>Uwaga: trzeba pilnować zmiennych związanych przez <span
+class="math inline">\(\lambda\)</span> i w razie potrzeby zmieniać im
+nazwy (tzw. <span class="math inline">\(\alpha\)</span>-konwersja):</p>
+<p><span class="math display">\[ (\lambda y.x)[y/x] \stackrel{\alpha}{=}
+(\lambda z.x)[y/x] = \lambda z.y \]</span></p>
+<p>W Haskellu przeważają funkcje nazwane, ale możemy też używać
+anonimowych.</p>
+</div>
+
+<div id="programowanie-całościowe"
+class="title-slide slide section level2">
+<h1>Programowanie całościowe</h1>
+<p>Oczywiście tak w językach imperatywnych jak i funkcyjnych używamy
+arytmetyki maszynowej.<br /> Języki imperatywne bliższe są też modelowi
+von Neumanna (adresowalne komórki pamięci zamiast taśmy)</p>
+<p>Tym niemniej ogólna zasada pozostaje:</p>
+<p><strong>w programowaniu funkcyjnym patrzymy bardziej na całe
+obliczenie niż na poszczególne kroki.</strong></p>
+<p>Suma i iloczyn listy funkcyjnie:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">sum</span> <span class="ot">=</span> fold <span class="dv">0</span> (<span class="op">+</span>) list</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">product</span> <span class="ot">=</span> fold <span class="dv">1</span> (<span class="op">*</span>) list</span></code></pre></div>
+<p>Suma i iloczyn listy imperatywnie:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span>list<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  sum <span class="op">+=</span> list<span class="op">-&gt;</span>head<span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  list <span class="op">=</span> list<span class="op">-&gt;</span>tail<span class="op">;</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span>list<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  prod <span class="op">*=</span> list<span class="op">-&gt;</span>head<span class="op">;</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  list <span class="op">=</span> list<span class="op">-&gt;</span>tail<span class="op">;</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Ćwiczenie:</strong> ile problemów znajdziesz w powyższym
+kodzie C/C++?</p>
+</div>
+<div id="programowanie-całościowe---więcej-przykładów"
+class="slide section level3">
+<h1>Programowanie całościowe - więcej przykładów</h1>
+<p><strong>Imperatywnie (myślenie krok-po-kroku):</strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Znajdź pierwsze 10 liczb parzystych większych od 100</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="kw">def</span> even_more():</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>    result <span class="op">=</span> []</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">101</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">len</span>(result) <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>        result.append(n)</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>    n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
+<p><strong>Funkcyjnie (myślenie deklaratywne):</strong></p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">-- &quot;Weź liczby od 101, filtruj parzyste, weź pierwszych 10&quot;</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>evenMore <span class="ot">=</span> <span class="fu">take</span> <span class="dv">10</span> <span class="op">$</span> <span class="fu">filter</span> <span class="fu">even</span> [<span class="dv">101</span><span class="op">..</span>]</span></code></pre></div>
+<p><strong>Co zyskujemy?</strong></p>
+<ul>
+<li>Kod brzmi jak specyfikacja</li>
+<li>Brak niepotrzebnych zmiennych tymczasowych
+(<code>result, n</code>)</li>
+<li>Łatwo modyfikować (<code>take 20</code>, <code>odd</code>,
+itp.)</li>
+<li>Można łatwo wykonać równolegle</li>
+<li>Mniej błędów (brak mutacji stanu)</li>
+</ul>
+<p><strong>Cena?</strong> - Trzeba myśleć inaczej (ale warto! 💪)</p>
+</div>
+<div id="ale-przecież-w-pythonie-można" class="slide section level3">
+<h1>Ale przecież w Pythonie można…</h1>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">-- &quot;Weź liczby od 101, filtruj parzyste, weź 10 pierwszych&quot;</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">take</span> <span class="dv">10</span> <span class="op">$</span> <span class="fu">filter</span> <span class="fu">even</span> [<span class="dv">101</span><span class="op">..</span>]</span></code></pre></div>
+<p>Python ma konstrukcje “deklaratywne” (zapożyczone z Haskella), ale
+czy to zadziała? …i czy jest tak samo czytelne?</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="bu">list</span>(itertools.islice([x <span class="cf">for</span> x <span class="kw">in</span> itertools.count(<span class="dv">101</span>) <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>  ], <span class="dv">0</span>, <span class="dv">10</span>))</span></code></pre></div>
+<p>(loop)</p>
+<p>A to?</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="bu">list</span>(itertools.islice(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, itertools.count(<span class="dv">101</span>)), <span class="dv">0</span>, <span class="dv">10</span>))</span></code></pre></div>
+<p>a dlaczego nie to?</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="bu">filter</span>(<span class="kw">lambda</span> x: x<span class="op">%</span><span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, itertools.count(<span class="dv">101</span>))[:<span class="dv">10</span>]</span></code></pre></div>
+<p>(crash)</p>
+</div>
+
+<div id="instrukcje-i-wyrażenia"
+class="title-slide slide section level2">
+<h1>Instrukcje i wyrażenia</h1>
+<p>W programowaniu imperatywnym, tak jak i w maszynach Turinga i von
+Neumanna, centralnym pojęciem jest instrukcja: w jaki sposób zmienić
+stan maszyny.</p>
+<p>W programowaniu funkcyjnym, centralnym pojęciem jest wyrażenie,
+opisujące pewną wartość.</p>
+<p>Wyrażenia mogą zawierać nazwy dla wartości, potocznie nazywane
+zmiennymi.</p>
+<p>Uwaga: słowo zmienna jest tu użyte w znaczeniu matematycznym (jak
+“funkcja jednej zmiennej”), <br/>a nie znanej z programowania
+imperatywnego (jak “zwiększ wartość zmiennej o 1”).</p>
+</div>
+<div id="zasada-przejrzystości" class="slide section level3">
+<h1>Zasada przejrzystości</h1>
+<p>Wartość wyrażenia zależy tylko od wartości jego części
+składowych;<br/> zastąpienie części wyrażenia innym wyrażeniem o tej
+samej wartości daje równoważne wyrażenie.</p>
+<p>Konsekwencja: podwyrażenia mogą być obliczane w dowolnej kolejności,
+a nawet równolegle.</p>
+<p>O wyrażeniach funkcyjnych możemy wnioskować przy użyciu zwykłych
+reguł matematycznych</p>
+<p><span class="math display">\[ \forall x .f(x)+f(x) = 2f(x)
+\]</span></p>
+<p>W językach imperatywnych tak nie jest - wyrażenia mogą zmieniać stan
+maszyny; mówimy wtedy o efektach ubocznych.</p>
+<p>Do kwestii efektów jeszcze wrócimy - czasami efekty są wręcz pożądane
+(np. I/O).</p>
+</div>
+<div id="weryfikacja" class="slide section level3">
+<h1>Weryfikacja</h1>
+<p>Dzieki zasadzie przejrzystości łatwiej dowodzić własności programów,
+np.</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">filter</span> p <span class="op">.</span> <span class="fu">filter</span> q <span class="ot">=</span> <span class="fu">filter</span> (p <span class="op">&amp;&amp;</span> q)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">filter</span> p <span class="op">.</span> <span class="fu">concat</span> <span class="ot">=</span> <span class="fu">concat</span> <span class="op">.</span> <span class="fu">map</span>(<span class="fu">filter</span> p)</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="fu">filter</span> p (xs <span class="op">++</span> ys) <span class="ot">=</span> <span class="fu">filter</span> p xs <span class="op">++</span> <span class="fu">filter</span> p ys</span></code></pre></div>
+<p>a także używać ich do usprawniania programów.</p>
+</div>
+
+
+<div id="haskell" class="title-slide slide section level1">
+<h1>Haskell</h1>
+<p>Dziś obejrzymy język Haskell “z lotu ptaka”<br/> - pobieżnie omówimy
+najważniejsze pojęcia i konstrukcje, będziemy je rozwijać na kolejnych
+wykładach.</p>
+</div>
+<div id="haskell-1" class="title-slide slide section level2">
+<h1>Haskell</h1>
+<p>Nazwa — pochodzi od imienia pioniera rachunku kombinatorów:
+<strong>Haskell Brooks Curry</strong> (1900–1982)</p>
+<p>Czysty język funkcyjny</p>
+<ul>
+<li>Bez efektów ubocznych (ukrytych)</li>
+<li>Ułatwia wnioskowanie o programach</li>
+</ul>
+<p>Leniwy (dokładniej: pobłażliwy, ang. <em>non-strict</em>)</p>
+<ul>
+<li>Wyrażenia nie są obliczane wcześniej niż potrzeba</li>
+<li>Umożliwia programowanie z (potencjalnie) nieskończonymi
+strukturami</li>
+<li>Daje pełną kompozycjonalność
+(<code>take 3 . filter good . candidates</code>)</li>
+</ul>
+<p>Zaprojektowany w latach 1990-tych, od tego czasu do dziś intensywnie
+rozwijany<br /> (Haskell Report 1.0 1990; Haskell 98 - 2002; Haskell
+2010; oraz de facto GHC2021; GHC2024)</p>
+</div>
+
+<div id="struktura-programu" class="title-slide slide section level2">
+<h1>Struktura programu</h1>
+<ul>
+<li>Program w Haskellu składa się z <em>modułów</em></li>
+<li>Moduły zawierają <em>deklaracje</em></li>
+<li>Najważniejszą formą deklaracji są <em>definicje</em> funkcji</li>
+<li>Centralną rolę w takich definicjach grają <em>wyrażenia</em></li>
+</ul>
+<p><strong>W Haskellu nie ma instrukcji takich jak znamy z innych
+języków (np. przypisania).</strong></p>
+<ul>
+<li>oprócz definicji funkcji także deklaracje typów, klas, itp.</li>
+</ul>
+</div>
+
+<div id="interpreter" class="title-slide slide section level2">
+<h1>Interpreter</h1>
+<p>Haskell jest zasadniczo językiem kompilowanym (podobnie jak C), ale
+istnieje też interpreter: <code>ghci</code></p>
+<p>W interpreterze możemy wczytać plik z definicjami i obliczać wartości
+wyrażeń.</p>
+<pre><code>$ ghci
+GHCi, version 9.8.4: https://www.haskell.org/ghc/  :? for help
+
+ghci&gt; 2 * 2
+4
+ghci&gt; :load square.hs
+[1 of 1] Compiling Main             ( square.hs, interpreted )
+Ok, one module loaded.
+ghci&gt; square 3
+9</code></pre>
+</div>
+
+<div id="kompilator" class="title-slide slide section level2">
+<h1>Kompilator</h1>
+<p>Program, który zawiera funkcję <code>main</code> możemy skompilować
+do pliku wykonalnego:</p>
+<pre class="shell"><code>$ cat answer.hs
+main = print 42
+
+$ ghc answer.hs
+[1 of 1] Compiling Main             ( answer.hs, answer.o )
+Linking answer ...
+
+$ ./answer
+42</code></pre>
+</div>
+<div id="czy-haskell-jest-wolny" class="slide section level3">
+<h1>Czy Haskell jest wolny?</h1>
+<p>Czy Haskell jest wolniejszy niż C?</p>
+<p>Tak ale nie bardzo. 30 lat temu tak było, ale teraz GHC jest bardzo
+dobrym kompilatorem.</p>
+<p>Przykład benchmarku (benchmarksgame-team.pages.debian.net)</p>
+<pre><code>binary-trees
+
+source         secs      mem        gz  cpu secs
+Rust #5        1.09     198,720     771   3.84
+C clang #2     1.66     170,236     816   5.36
+Haskell GHC #4 2.06     271,032     807   5.24
+Java  #7       2.62   1,803,192     841   8.14
+Node.js #6     8.60   1,250,816     752  30.68
+Go #2         14.17     624,780     672  56.29
+Swift #4      17.49     707,456     772  55.84
+Python 3 #4   33.61     276,992     481 121.96</code></pre>
+<p>Czy Haskell jest wolniejszy niz Java/Python?</p>
+<p>NIE, zwykle jest szybszy :)</p>
+</div>
+<div id="czy-programowanie-w-haskellu-wymaga-teorii-kategorii"
+class="slide section level3">
+<h1>Czy programowanie w Haskellu wymaga teorii kategorii?</h1>
+<p>W Internecie mozna znaleźć “paragony grozy” typu:</p>
+<blockquote>
+<p>Costate Comonad Coalgebra is equivalent of Java member variable
+update technology for Haskell</p>
+</blockquote>
+<p><code>- @PLT_Borat</code></p>
+<p>albo</p>
+<blockquote>
+<p>A monad is just a monoid in the category of endofunctors, what’s the
+problem?</p>
+</blockquote>
+<p>Pewne działy matematyki są istotnie przydatne w bardzo zaawansowanym
+programowaniu, ale na co dzień nie sa potrzebne.</p>
+<p>Haskell jest oczywiście zupełnie inny niż np. Java, ale przekonamy
+się, że nie jest trudniejszy niż dajmy na to C++:</p>
+<blockquote>
+<p>The lambda expression is a prvalue expression of unique unnamed
+non-union non-aggregate class type, known as closure type, which is
+declared (for the purposes of ADL) in the smallest […] scope that
+contains the lambda expression.</p>
+</blockquote>
+<blockquote>
+<p>A prvalue is an expression whose evaluation computes the value of an
+operand of a built-in operator, or initializes an object.</p>
+</blockquote>
+<blockquote>
+<p>[cppreference.com]</p>
+</blockquote>
+</div>
+
+<div id="użycie-funkcji" class="title-slide slide section level2">
+<h1>Użycie funkcji</h1>
+<p>Podstawową rzeczą, którą możemy zrobić z funkcją, jest wyznaczenie
+jej wartości dla danych argumentów;<br/> mówimy wtedy o zastosowaniu
+(aplikacji) funkcji do argumentów.</p>
+<p>(za chwilę przekonamy się dlaczego nie mówimy o wywołaniu
+funkcji).</p>
+<pre><code>ghci&gt; not True
+False
+ghci&gt; min 2 3
+2</code></pre>
+<p>zauważmy, że piszemy raczej <code>f x y</code> niż
+<code>f(x,y)</code> - później wyjaśnimy dlaczego.</p>
+<p>Oczywiście funkcje mogą być argumentami i wynikami innych
+funkcji.</p>
+<p>Funkcje są wartościami podobnie jak liczby, jednak (w ogólności) nie
+możemy ich wypisać.</p>
+</div>
+
+<div id="funkcje-i-definicje" class="title-slide slide section level2">
+<h1>Funkcje i definicje</h1>
+<p>Definicja funkcji mówi, jaka jest jej wartość dla danych
+argumentów:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>square x <span class="ot">=</span> x <span class="op">*</span> x</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>twice f x <span class="ot">=</span> f(f x)</span></code></pre></div>
+<p>Samo zastosowanie funkcji nie wymaga nawiasów, ale są one potrzebne
+jeśli argument jest wyrażeniem złożonym.</p>
+<p>Możemy definiować “funkcje 0-argumentowe”, czyli stałe:</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>answer <span class="ot">=</span> <span class="dv">40</span> <span class="op">+</span> <span class="dv">2</span></span></code></pre></div>
+<p>Definicje zapisujemy w pliku, który możemy załadować do interpretera
+lub skompilować.</p>
+<p>W interpreterze można tworzyć proste (zasadniczo jednolinijkowe)
+definicje ad-hoc, ale nie jest to zalecane.</p>
+</div>
+<div id="formy-definicji" class="slide section level3">
+<h1>Formy definicji</h1>
+<p>Definicja może zawierać warunki (guards):</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>mn x y <span class="op">|</span> x <span class="op">&lt;</span>  y <span class="ot">=</span> x</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>       <span class="op">|</span> x <span class="op">&gt;=</span> y <span class="ot">=</span> y</span></code></pre></div>
+<p>może też zawierać definicje pomocnicze</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>f x y <span class="op">|</span> x <span class="op">&lt;</span> a     <span class="ot">=</span> x <span class="op">+</span> a</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>      <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> x <span class="op">-</span> a       <span class="co">-- warunki są sprawdzane kolejno, pierwszy spełniony wygrywa</span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>      <span class="kw">where</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>        a <span class="ot">=</span> square(y<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>        square x <span class="ot">=</span> x <span class="op">*</span> x</span></code></pre></div>
+<p>NB zasięgiem definicji w <code>where</code> są wszystkie gałęzie
+warunkowe.</p>
+</div>
+
+<div id="rekurencja" class="title-slide slide section level2">
+<h1>Rekurencja</h1>
+<p>Definicje mogą być rekurencyjne</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>fact n <span class="op">|</span> n <span class="op">&lt;=</span> <span class="dv">1</span> <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>       <span class="op">|</span> n <span class="op">&gt;</span>  <span class="dv">1</span> <span class="ot">=</span>  n <span class="op">*</span> fact(n<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p>W programowaniu funkcyjnym rekurencja jest podstawowym mechanizmem
+sterowania (nie ma instrukcji, zatem nie ma <code>while</code>).</p>
+<p>Definicje mogą być wzajemnie rekurencyjne, dlatego możemy je pisać w
+dowolnej kolejności.</p>
+</div>
+
+<div id="obliczenia" class="title-slide slide section level2">
+<h1>Obliczenia</h1>
+<p>Obliczenie wartości wyrażenia polega na redukowaniu (upraszczaniu)
+wyrażenia aż do uzyskania postaci kanonicznej.</p>
+<pre><code>square x = x * x</code></pre>
+<p>Spójrzmy na wyrażenie <code>square(3+4)</code>; jedna z możliwych
+redukcji</p>
+<pre><code>square (3+4) = { + }
+square 7     = { square }
+7 * 7        = { * }
+49</code></pre>
+<p>Wyrażenie “49” nie da się zredukować - jest ono wartością (jest w
+postaci normalnej).</p>
+</div>
+
+<div id="kolejność-ewaluacji" class="title-slide slide section level2">
+<h1>Kolejność ewaluacji</h1>
+<p>Dla większości wyrażeń możliwe są różne kolejności obliczeń.</p>
+<p>Inną możliwością obliczenia <code>square(3+4)</code> jest</p>
+<pre><code>square (3+4)  = { square }
+(3+4) * (3+4) = { + }
+7 * 7         = { * }
+49</code></pre>
+<p>Większość języków oblicza wartości argumentów przed przekazaniem ich
+do funkcji; <br /> kolejność obliczania składowych wyrażenia może mieć
+wpływ na jego wartość.</p>
+<p>W Haskellu (przejrzystość!), jeśli dwie kolejności obliczeń prowadzą
+do wyniku, <br /> to dadzą ten sam wynik.</p>
+</div>
+
+<div id="kolejność-ewaluacji-1"
+class="title-slide slide section level2">
+<h1>Kolejność ewaluacji</h1>
+<p>Jeśli dwie strategie (kolejności) obliczeń prowadzą do wyniku, to
+dadzą ten sam wynik.</p>
+<p>Natomiast może się zdarzyć, że niektóre strategie nie prowadzą do
+wyniku (błąd, zapętlenie).</p>
+<p>Dlatego Haskell nie oblicza wartości argumentów przed przekazaniem
+ich do funkcji <br /> jeżeli nie jest to niezbędne.</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>ghci<span class="op">&gt;</span> k x y <span class="ot">=</span> x</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>ghci<span class="op">&gt;</span> k <span class="st">&quot;OK&quot;</span>  (<span class="fu">error</span> <span class="st">&quot;crash!&quot;</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="st">&quot;OK&quot;</span></span></code></pre></div>
+<p>Haskell: <strong>OK</strong>; ML, Scala, C: <code>crash!</code></p>
+<p>Domyślna strategia w Haskellu (tzw. strategia normalna) ma tę
+własność, <br /> że jeśli jakaś strategia obliczeń prowadzi do wyniku,
+to normalna też.</p>
+<p>Strategia normalna wykonuje najpierw najbardziej zewnętrzną redukcję
+(leftmost-outermost)</p>
+</div>
+
+<div id="wartość-nieokreślona" class="title-slide slide section level2">
+<h1>Wartość nieokreślona</h1>
+<p>Obliczenia mogą nie prowadzić do wyniku (błąd, zapętlenie).</p>
+<p>Aby jednak zachować zasadę, że każde poprawne wyrażenie opisuje jakąś
+wartość, <br /> czasami wprowadza się “wartość nieokreśloną”: <span
+class="math inline">\(\bot\)</span> (tzw. pinezka, ang.
+<em>bottom</em>).</p>
+<p>Dokładniej, wartością wyrażenia jest <span
+class="math inline">\(\bot\)</span>,<br /> jeśli jego obliczenie w
+porządku normalnym prowadzi do błędu lub zapętlenia.</p>
+<p>W Haskellu taką wartość mają np</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>bottom1 <span class="ot">=</span> <span class="fu">undefined</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>bottom2 <span class="ot">=</span> <span class="fu">error</span> <span class="st">&quot;some message&quot;</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>bottom3 <span class="ot">=</span> bottom3</span></code></pre></div>
+</div>
+
+<div id="funkcje-rygorystyczne-i-pobłażliwe"
+class="title-slide slide section level2">
+<h1>Funkcje rygorystyczne i pobłażliwe</h1>
+<p>Jeśli <span class="math inline">\(f(\bot) = \bot\)</span>, mówimy że
+funkcja <span class="math inline">\(f\)</span> jest
+<em>rygorystyczna</em> albo <em>pedantyczna</em> (ang.
+<em>strict</em>).</p>
+<p>W przeciwnym wypadku mówimy, że jest <em>pobłażliwa</em> (ang.
+<em>non-strict</em>).</p>
+<p>W wypadku funkcji wieloargumentowej możemy mówić, ze funkcja jest
+rygorystyczna ze względu na któryś argument.</p>
+<p>Rozważmy na przykład funkcje</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">id</span> x <span class="ot">=</span> x</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="fu">const</span> x y <span class="ot">=</span> x</span></code></pre></div>
+<p>Funkcja <code>id</code> jest rygorystyczna.</p>
+<p>Funkcja <code>const</code> jest rygorystyczna dla pierwszego
+argumentu, ale pobłażliwa dla drugiego:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">id</span> <span class="fu">undefined</span> <span class="ot">=</span> <span class="fu">undefined</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="fu">const</span> <span class="fu">undefined</span> y <span class="ot">=</span> <span class="fu">undefined</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="fu">const</span> x <span class="fu">undefined</span> <span class="ot">=</span> x</span></code></pre></div>
+<!--
+Nie jest jednak w pełni rygorystyczna:
+$\quad const(\bot) = \lambda y.\bot \neq \bot$
+-->
+<p>Gorliwa (eager) ewaluacja (najpierw argumenty) daje funkcje
+pedantyczne.<br/> Leniwa (lazy) ewaluacja (dopiero kiedy trzeba) pozwala
+na funkcje pobłażliwe.</p>
+</div>
+
+<div id="listy" class="title-slide slide section level2">
+<h1>Listy</h1>
+<p>Listy są popularną strukturą danych. W Haskellu na tyle ważną, że
+będzie o nich osobny wykład.</p>
+<p>Sposoby tworzenia list:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>]</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>[<span class="dv">0</span><span class="op">..</span><span class="dv">4</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>[<span class="dv">1</span>,<span class="dv">3</span><span class="op">..</span><span class="dv">9</span>]</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>[<span class="dv">2</span><span class="op">*</span>n<span class="op">+</span><span class="dv">1</span> <span class="op">|</span> n <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="op">..</span><span class="dv">4</span>]]</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a><span class="dv">0</span><span class="op">:</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]  <span class="co">-- (head:tail)</span></span></code></pre></div>
+<p>Napisy są listami znaków:</p>
+<pre><code>ghci&gt; [&#39;a&#39;..&#39;h&#39;]
+&quot;abcdefgh&quot;</code></pre>
+<p>Na laboratorium poznamy funkcje na listach takie, jak:</p>
+<pre><code>(++),  take,  drop,  concat, reverse, words, unwords, filter, ...</code></pre>
+</div>
+
+<div id="strumienie" class="title-slide slide section level2">
+<h1>Strumienie</h1>
+<p>Jedną z ciekawych możliwości, jakie daje leniwa ewaluacja jest
+programowanie z (potencjalnie) nieskończonymi strukturami danych.<br/>
+Jedną z takich struktur są strumienie, czyli leniwe listy.</p>
+<p>Możemy na przykład zdefiniować strumień wszystkich liczb
+naturalnych:</p>
+<pre><code>&gt; nats = [0..]
+&gt; few = take 5   -- weź pięć pierwszych elementów
+&gt; few nats
+[0,1,2,3,4]</code></pre>
+<p>Potem możemy wybrać ze strumienia tylko parzyste:</p>
+<pre><code>&gt; evens = [x | x &lt;- nats, even x]
+&gt; few evens
+[0,2,4,6,8]
+&gt; evens !! 444_444
+888888
+
+&gt; odds = [x+1 | x &lt;- evens]
+&gt; few odds
+[1,3,5,7,9]</code></pre>
+</div>
+
+<div id="strumienie---ciekawsze-przykłady"
+class="title-slide slide section level2">
+<h1>Strumienie - ciekawsze przykłady</h1>
+<p>Fibonacci: lista, która zjada swój własny ogon</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>fibs <span class="ot">=</span> <span class="dv">0</span> <span class="op">:</span> <span class="dv">1</span> <span class="op">:</span> <span class="fu">zipWith</span> (<span class="op">+</span>) fibs (<span class="fu">tail</span> fibs)</span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a><span class="co">-- Weź 10 pierwszych:</span></span>
+<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a><span class="fu">take</span> <span class="dv">10</span> fibs  <span class="co">-- [0,1,1,2,3,5,8,13,21,34]</span></span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a><span class="co">-- 1000-ną:</span></span>
+<span id="cb45-7"><a href="#cb45-7" tabindex="-1"></a>fibs <span class="op">!!</span> <span class="dv">1000</span>  <span class="co">-- obliczone natychmiast!</span></span></code></pre></div>
+<p>Liczby pierwsze:</p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>sieve (p<span class="op">:</span>xs) <span class="ot">=</span> p <span class="op">:</span> sieve [x <span class="op">|</span> x <span class="ot">&lt;-</span> xs, x <span class="ot">`mod`</span> p <span class="op">/=</span> <span class="dv">0</span>]</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>primes <span class="ot">=</span> sieve [<span class="dv">2</span><span class="op">..</span>]</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a><span class="fu">take</span> <span class="dv">10</span> primes  <span class="co">-- [2,3,5,7,11,13,17,19,23,29]</span></span></code></pre></div>
+</div>
+
+<div id="typy" class="title-slide slide section level2">
+<h1>Typy</h1>
+<p>Każde (poprawne) wyrażenie ma typ. <br /> Typ wartości jest pewną
+klasą abstrakcji: <br /> wskazuje własności wspólne dla wartości tego
+typu.</p>
+<p>Na najniższym poziomie, komputery operują na ciągach bitów. <br />
+System typów pozwala na tworzenie abstrakcji - nadaje nowe znaczenia
+ciągom bitów <br /> (to jest adres, to jest liczba, to jest numer
+rezerwacji).</p>
+<p>Haskell ma <em>silne typowanie</em> - typy nie zmieniają się w
+trakcie obliczeń (nie ma rzutowań).</p>
+<p>Typy są wyprowadzalne - interpreter/kompilator potrafi odtworzyć typ
+dowolnego wyrażenia. <br /> W zwiazku z tym deklarowanie typów funkcji
+nie jest obowiązkowe, ale jest użyteczną dokumentacją (sprawdzaną przez
+kompilator!)</p>
+<p>W ghci możemy zapytać o typ dowolnego wyrażenia</p>
+<pre><code>ghci&gt; :type words &quot;a b c&quot;
+words &quot;a b c&quot; :: [String]
+ghci&gt; :t words
+words :: String -&gt; [String]
+ghci&gt; :type (+)
+(+) :: Num a =&gt; a -&gt; a -&gt; a
+ghci&gt; :type +d (+)
+(+) :: Integer -&gt; Integer -&gt; Integer</code></pre>
+</div>
+<div id="dlaczego-typy-praktycznie" class="slide section level3">
+<h1>Dlaczego typy? (praktycznie)</h1>
+<p><strong>Typy = automatyczna dokumentacja + weryfikacja</strong></p>
+<p>Bez typów (Python/JavaScript):</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="kw">def</span> process(data, config, debug):</span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>    <span class="co"># Co to jest data? Lista? Dict? String?</span></span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>    <span class="co"># Co to jest config? Opcjonalny?</span></span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>    <span class="co"># debug to bool? String? Int (0/1)?</span></span>
+<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a>    ...</span></code></pre></div>
+<p><strong>Z typami (Haskell):</strong></p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Debug</span> <span class="ot">=</span> <span class="dt">Bool</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="ot">process ::</span> [<span class="dt">User</span>] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Config</span> <span class="ot">-&gt;</span> <span class="dt">Debug</span> <span class="ot">-&gt;</span> <span class="dt">Result</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="co">--           ↑           ↑             ↑         ↑</span></span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a><span class="co">--         lista     może być       True/False  zwraca</span></span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a><span class="co">--         userów    niezdefiniowane            Result</span></span></code></pre></div>
+<p><strong>Korzyści:</strong></p>
+<ul>
+<li>✓ <strong>IDE wie</strong> co można zrobić z argumentami</li>
+<li>✓ <strong>Kompilator wykryje</strong> błędy PRZED uruchomieniem</li>
+<li>✓ <strong>Kolega z zespołu wie</strong> jak użyć funkcji</li>
+<li>✓ <strong>Refactoring jest bezpieczny</strong> (zmiana typu →
+wszystkie użycia muszą się zgadzać)</li>
+</ul>
+</div>
+<div id="przykład-z-życia" class="slide section level3">
+<h1>Przykład z życia:</h1>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="co">-- Ta funkcja NIE SKOMPILUJE SIĘ jeśli zwróci Nothing</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="ot">getUserEmail ::</span> <span class="dt">UserId</span> <span class="ot">-&gt;</span> <span class="dt">Email</span>  <span class="co">-- MUSI zwrócić Email</span></span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a><span class="co">-- Ta funkcja może nie znaleźć użytkownika</span></span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a><span class="ot">findUser ::</span> <span class="dt">UserId</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">User</span>  <span class="co">-- Jasno komunikuje: może być Nothing</span></span></code></pre></div>
+</div>
+
+<div id="typy-funkcji" class="title-slide slide section level2">
+<h1>Typy funkcji</h1>
+<p>Argumenty do funkcji przekazujemy “po jednym”, na przykład
+<code>mn x y</code>.<br/> W wyrażeniu <code>f(x,y)</code> argumentem
+funkcji <code>f</code> jest para <code>(x,y)</code>. <br/> Oczywiście
+krotki mogą być argumentami funkcji, ale pamiętajmy, że
+<code>f(x,y)</code> to nie to samo co <code>f x y</code></p>
+<p>Znajduje to odbicie w typach funkcyjnych</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="ot">mn ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span></code></pre></div>
+<p>Typ <code>Int -&gt; Int -&gt; Int</code> jest równoważny
+<code>Int -&gt; (Int -&gt; Int)</code> <br /> i oznacza funkcję, która
+dostawszy argument typu <code>Int</code> daje w wyniku funkcję
+<code>Int -&gt; Int</code>.</p>
+<p>Z kolei <code>(Int -&gt; Int) -&gt; Int</code> to typ funkcji, której
+argumentami są funkcje <code>Int -&gt; Int</code>.</p>
+<p>Analogicznie <code>mn x y</code> jest równoważne
+<code>(mn x) y</code> ale czym innym niż <code>mn(x y)</code>!</p>
+<p>Tym niemniej potocznie mówimy że funkcja jest n-argumentowa”.<br/> W
+rzeczywistosci redukcja aplikacji odbywa się tylko gdy jest odpowiednia
+liczba argumentów. <br/> (czyli w naszym przykładzie <code>mn 0</code>
+się nie redukuje, dopiero <code>mn 0 3</code>)</p>
+</div>
+
+<div id="typy-polimorficzne" class="title-slide slide section level2">
+<h1>Typy polimorficzne</h1>
+<p>Niektóre funkcje mogą działać dla argumentów różnych typów - czyli
+mogą mieć więcej niż jeden typ; na przykład identyczność</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">id</span> x <span class="ot">=</span> x</span></code></pre></div>
+<p>wyrazamy to przy pomocy tzw. zmiennych typowych</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">id</span><span class="ot"> ::</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>Należy to rozumieć tak, że identyczność ma typ <code>a -&gt; a</code>
+dla dowolnego typu <code>a</code>.</p>
+<p>Wartość nieokreślona i błąd są dowolnego typu:</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">undefined</span><span class="ot"> ::</span> a</span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">error</span><span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p><strong>Uwaga:</strong> <code>undefined</code> to coś całkiem innego
+niż w Javascript, mniej więcej</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">undefined</span> <span class="ot">=</span> <span class="fu">error</span> <span class="st">&quot;undefined&quot;</span></span></code></pre></div>
+</div>
+
+<div id="definiowanie-typów" class="title-slide slide section level2">
+<h1>Definiowanie typów</h1>
+<p>Możemy definiować własne typy danych, np.:</p>
+<ul>
+<li><code>data Color = Red | Green | Blue</code></li>
+<li><code>data ExitCode = ExitSuccess | ExitFailure Int</code></li>
+</ul>
+<p>Typy mogą być rekurencyjne</p>
+<ul>
+<li><code>data Nat = Zero | Succ Nat</code></li>
+</ul>
+<p>… i polimorficzne</p>
+<ul>
+<li><code>data Maybe a = Nothing | Just a</code></li>
+<li><code>data Tree a = Empty | Node a (Tree a) (Tree a)</code></li>
+</ul>
+<p>Funkcje operujące na takich typach możemy definiować przez przypadki
+(dopasowanie wzorca)</p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>add m <span class="dt">Zero</span> <span class="ot">=</span> m</span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>add m (<span class="dt">S</span> n) <span class="ot">=</span> <span class="dt">S</span> (add m n)</span></code></pre></div>
+<p>Typom poświęcony będzie następny wykład.</p>
+</div>
+
+<div id="klasy-typów" class="title-slide slide section level2">
+<h1>Klasy typów</h1>
+<p>Czasami jakaś operacja ma sens dla więcej niż jednego typu;<br /> np.
+dodawanie dla <code>Int</code>, <code>Double</code> itp.</p>
+<p>W Haskellu jest to zrealizowane przy pomocy <em>klas typów</em><br/>
+- zbiorów typów, które mają wspólny interfejs (ale być może zupełnie
+inne implementacje).</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="ot">(+) ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>Rozumiemy to tak, że dodawanie jest przeciążone i ma typ
+<code>a -&gt; a -&gt; a</code> dla dowolnego typu <code>a</code>
+należacego do klasy <code>Num</code><br/> (czyli realizującego interfejs
+<code>Num</code>).</p>
+<p>Także literały liczbowe są przeciążone</p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="dv">0</span><span class="ot"> ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a</span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="fl">3.14</span><span class="ot"> ::</span> <span class="dt">Fractional</span> a <span class="ot">=&gt;</span> a</span></code></pre></div>
+<p>Klasy typów omówimy dogłębnie na jednym z kolejnych wykładów.</p>
+</div>
+
+<div id="przejrzystość" class="title-slide slide section level2">
+<h1>Przejrzystość</h1>
+<p>Haskell jest językiem czystym, w którym obowiązuje zasada
+przejrzystości:</p>
+<ul>
+<li>każde obliczenie wyrażenia daje ten sam wynik</li>
+<li>zastąpienie wyrażenia innym wyrażeniem o tej samej wartości daje
+równoważny program</li>
+</ul>
+<p>Na przykład</p>
+<ul>
+<li><code>let x = 2 in x+x</code> jest równoważne <code>2+2</code></li>
+<li><code>let f x = x + x in f 2</code> jest równoważne
+<code>2+2</code></li>
+<li><code>let x = g 2 in x + x</code> jest równoważne
+<code>g 2 + g 2</code> dla dowolnej funkcji g (odpowiedniego typu).</li>
+</ul>
+</div>
+<div id="efekty-uboczne" class="slide section level3">
+<h1>Efekty uboczne</h1>
+<p>Sytuacja komplikuje się w obecności efektów ubocznych, np. I/O. <br/>
+Powiedzmy, że mamy funkcję <code>readInt :: Handle -&gt; Int</code>
+wczytującą liczbę ze strumienia (np. <code>stdin</code>). Czy</p>
+<pre><code>let x = readInt stdin in x+x</code></pre>
+<p>jest równoważne <code>readInt stdin + readInt stdin</code> ?</p>
+<p>Efekty uboczne są w konflikcie z zasadą przejrzystości. <br/> Różne
+języki rozwiązują to na różne sposoby, z reguły rezygnując z
+przejrzystości. <br/> W ML niektóre funkcje nie są przejrzyste. W C
+prawie żadne funkcje nie są przejrzyste.</p>
+</div>
+<div id="czystość-jest-bliska-boskości" class="slide section level3">
+<h1>Czystość jest bliska boskości</h1>
+<p>W Haskellu przejrzystość jest zasadą nadrzędną, dlatego<br />
+<strong>nie może</strong> być funkcji takiej jak
+<code>readInt :: Handle -&gt; Int</code>.<br /></p>
+<p>Funkcja spełniająca podobną rolę będzie miała typ
+<code>Handle -&gt; IO Int</code>.</p>
+<p>Różnica wydaje się kosmetyczna, ale jest w istocie fundamentalna:</p>
+<ul>
+<li>wyrażenie <code>readInt stdin</code> nie daje teraz wartości typu
+Int, ale <strong>obliczenie</strong>,<br /> którego wykonanie da wartość
+typu <code>Int</code> (przepis na uzyskanie wartości typu
+<code>Int</code>);</li>
+<li>dzięki temu zachowujemy przejrzystość - każde wywołanie da takie
+samo obliczenie (wczytaj liczbę z stdin).</li>
+<li>system wykonawczy uruchamia obliczenie stanowiące wartość funkcji
+<code>main</code></li>
+</ul>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>k x y <span class="ot">=</span> x</span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>main <span class="ot">=</span> k (<span class="fu">print</span> <span class="st">&quot;foo&quot;</span>) (<span class="fu">print</span> <span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
+</div>
+
+
+<div id="podsumowanie" class="title-slide slide section level1">
+<h1>Podsumowanie</h1>
+<ul>
+<li>Programowanie funkcyjne opiera się na innym sposobie rozumienia
+obliczeń</li>
+<li>Rachunek funkcji zamiast maszyny stanowej</li>
+<li>Haskell - czysty język funkcyjny</li>
+<li>Zasada przejrzystości:
+<ul>
+<li>wartość wyrażenia zależy tylko od wartości jego części
+składowych;</li>
+<li>zastąpienie części wyrażenia innym wyrażeniem o tej samej wartości
+daje równoważne wyrażenie;</li>
+<li>ułatwia całościowe patrzenie na programy i wnioskowanie.</li>
+</ul></li>
+<li>Leniwa ewaluacja:
+<ul>
+<li>wyrażenia nie są obliczane wcześniej niż potrzeba;</li>
+<li>umożliwia programowanie z (potencjalnie) nieskończonymi
+strukturami,</li>
+<li>daje pełną kompozycjonalność</li>
+</ul></li>
+<li>Bogaty system typów
+<ul>
+<li>polimorfizm, typy algebraiczne, klasy typów</li>
+<li>interpreter/kompilator potrafi odtworzyć typ dowolnego
+wyrażenia.</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="organizacja" class="title-slide slide section level1">
+<h1>Organizacja</h1>
+
+</div>
+<div id="plan-wykładu" class="title-slide slide section level2">
+<h1>Plan wykładu</h1>
+<ol style="list-style-type: decimal">
+<li>Wstęp</li>
+<li>Typy</li>
+<li>Klasy</li>
+<li>Studium przypadku: liczby naturalne, listy</li>
+<li>Real World Haskell: I/O, moduły, cabal</li>
+<li>Lenistwo, strumienie</li>
+<li>Wyższe klasy Functor, Applicative,</li>
+<li>Monady</li>
+<li>Foldable/Traversable</li>
+<li>Wnioskowanie o programach</li>
+<li>Testowanie</li>
+<li>Tour de force: soczewki (Costate Comonad Coalgebra…)</li>
+</ol>
+</div>
+
+<div id="laboratorium" class="title-slide slide section level2">
+<h1>Laboratorium</h1>
+<p>Celem laboratorium jest przećwiczenie koncepcji z wykładu pod
+kierunkiem prowadzącego,<br/> wyjaśnienie niejasności (oraz oczywiście
+eksperymentowanie).</p>
+<p>Częściowo w formule “reverse classroom”:<br/> do wielu tematów jest
+umyślnie więcej zadań niż da się zrobić w 90 minut;<br/> pozostałe
+należy zrobić we własnym zakresie,<br/> w razie problemów zwrócić się do
+prowadzącego na kolejnych zajęciach.</p>
+<!--
+Tym niemniej nie należy traktować laboratorium tylko jak konsultacji;<br/>
+nieobecność utrudni zaliczenie przedmiotu.
+-->
+<p>W ramach laboratorium także wyjaśnianie zadań zaliczeniowych.</p>
+</div>
+
+<div id="materiały" class="title-slide slide section level2">
+<h1>Materiały</h1>
+<ul>
+<li>Materiały na https://moodle.mimuw.edu.pl</li>
+<li>Zadania oddajemy przez moodle (i omawiamy z prowadzącym)</li>
+<li>Klucz dostępu <code>PF25g#0n</code> - gdzie n = numer grupy (np.
+<code>PF25g#09</code>)</li>
+<li>Strona zapasowa https://github.com/mbenke/pf25</li>
+</ul>
+</div>
+
+<div id="zasady-zaliczania" class="title-slide slide section level2">
+<h1>Zasady zaliczania</h1>
+<ul>
+<li>trzy zadania zaliczeniowe - tekstowa wizualizacja procesu ewaluacji:
+<ul>
+<li>T2-T3 (2-15.3) ustalone kombinatory (S, K, …)</li>
+<li>T4-T7 (16.3-12.4) kombinatory definiowane przez użytkownika
+(pico-Haskell)</li>
+<li>T8-T13 (13.4-7.6) toż + dopasowanie wzorca</li>
+</ul></li>
+<li>zadania muszą być oddane przez moodle w wyznaczonych terminach</li>
+<li>ponadto rozmowa z prowadzącym na kolejnych zajęciach</li>
+<li>egzamin pisemny w laboratorium</li>
+</ul>
+<p>Warunki uzyskania oceny przed sesją: - wszystkie zadania oddane w
+terminie, &gt;= 70% - obecność (&gt;80%) i aktywność na zajęciach -
+egzamin ustny</p>
+<p>Zadanie MUSI być rozwiązane samodzielnie. Wszelkie zapożyczenia muszą
+być wyraźnie zaznaczone z podaniem źródła. Dotyczy to także kodu
+wygenerowanego/zasugerowanego przez narządzia AI i pokrewne (VS Code,
+Copilot, ChatGPT, Claude itp.)</p>
+<p>Ponadto student musi umieć objaśnić sposób działania każdego
+fragmentu oddanego kodu</p>
+</div>
+
+<div id="punktacja" class="title-slide slide section level2">
+<h1>Punktacja</h1>
+<ul>
+<li>Zadanie 1: 5 punktów; spóźnienie do 48h 1p, do 7 dni 2p, potem 1p za
+kazdy tydzień</li>
+<li>Zadanie 2: 10p; spóźnienie do 48h 1p; potem 2p za każdy rozpoczęty
+tydzień;</li>
+<li>Zadanie 3: 15p; spóźnienie do 24h 1p; do 48h 2p; do 7 dni 3p;
+powyżej 5p</li>
+<li>Egzamin 30p</li>
+</ul>
+<p>Skala ocen nie jest ustalona, ale 50% gwarantuje zaliczenie
+przedmiotu.</p>
+</div>
+
+</body>
+</html>
