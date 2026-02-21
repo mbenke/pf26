@@ -1178,6 +1178,8 @@ W ramach laboratorium także wyjaśnianie zadań zaliczeniowych.
 - ponadto rozmowa z prowadzącym na kolejnych zajęciach
 - egzamin pisemny w laboratorium
 
+Dla zaliczenia należy osiągnąć co najmniej 50% zarówno z programów jak i egzaminu. 
+
 Zadanie MUSI być rozwiązane samodzielnie. Wszelkie zapożyczenia muszą być wyraźnie zaznaczone z podaniem źródła. Dotyczy to także kodu wygenerowanego/zasugerowanego przez narządzia AI i pokrewne (VS Code, Copilot, ChatGPT, Claude itp.)
 
 Ponadto student musi umieć objaśnić sposób działania każdego fragmentu oddanego kodu.
