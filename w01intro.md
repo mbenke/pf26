@@ -1178,14 +1178,15 @@ W ramach laboratorium także wyjaśnianie zadań zaliczeniowych.
 - ponadto rozmowa z prowadzącym na kolejnych zajęciach
 - egzamin pisemny w laboratorium
 
-Warunki uzyskania oceny przed sesją:
+Zadanie MUSI być rozwiązane samodzielnie. Wszelkie zapożyczenia muszą być wyraźnie zaznaczone z podaniem źródła. Dotyczy to także kodu wygenerowanego/zasugerowanego przez narządzia AI i pokrewne (VS Code, Copilot, ChatGPT, Claude itp.)
+
+Ponadto student musi umieć objaśnić sposób działania każdego fragmentu oddanego kodu.
+
+# Warunki uzyskania oceny przed sesją
+
 - wszystkie zadania oddane w terminie, >= 70%
 - obecność (>80%) i aktywność na zajęciach
 - egzamin ustny
-
-Zadanie MUSI być rozwiązane samodzielnie. Wszelkie zapożyczenia muszą być wyraźnie zaznaczone z podaniem źródła. Dotyczy to także kodu wygenerowanego/zasugerowanego przez narządzia AI i pokrewne (VS Code, Copilot, ChatGPT, Claude itp.)
-
-Ponadto student musi umieć objaśnić sposób działania każdego fragmentu oddanego kodu
 
 ## Punktacja
 
@@ -1193,5 +1194,3 @@ Ponadto student musi umieć objaśnić sposób działania każdego fragmentu odd
 - Zadanie 2: 10p; spóźnienie do 48h 1p; potem 2p za każdy rozpoczęty tydzień;
 - Zadanie 3: 15p; spóźnienie do 24h 1p; do 48h 2p; do 7 dni 3p; powyżej 5p
 - Egzamin 30p
-
-Skala ocen nie jest ustalona, ale 50% gwarantuje zaliczenie przedmiotu.
