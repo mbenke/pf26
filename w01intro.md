@@ -240,6 +240,7 @@ STAN: B, TAŚMA: [1,1,1,1,_,_], POZYCJA: 4
 Podstawowa konstrukcja: zastosowanie funkcji do argumentu  - `f(x)` albo krócej: `f x`
 
 **Liczby naturalne -  idea:** liczba n jest reprezentowana przez n-krotne powtórzenie funkcji
+
 $$ n\ s\ z = s^n z $$
 
 np. $2\ s\ z = s(s\ z)$
@@ -375,6 +376,7 @@ $$ M ::= x \mid M(M) \mid \lambda x.M $$
 Reguła obliczenia (tzw. beta-redukcja):
 
 $$ (\lambda x.M)N \to M[N/x] $$
+
 gdzie $M[N/x]$ oznacza term $M$, w którym wolne wystapienia $x$ zastąpiono przez $N$
 
 na przykład
@@ -624,7 +626,7 @@ albo
 
 >  A monad is just a monoid in the category of endofunctors, what's the problem?
 
-Pewne działy matematyki są istotnie przydatne w bardzo zaawansowanym programowaniu, ale na co dzień nie sa potrzebne.
+Pewne działy matematyki są istotnie przydatne w bardzo zaawansowanym programowaniu, ale na co dzień nie są potrzebne.
 
 Haskell jest oczywiście zupełnie inny niż np. Java, ale przekonamy się, że nie jest trudniejszy niż dajmy na to C++:
 
@@ -977,7 +979,7 @@ Z kolei `(Int -> Int) -> Int` to typ funkcji, której argumentami są funkcje `I
 Analogicznie `mn x y` jest równoważne `(mn x) y`
 ale czym innym niż `mn(x y)`!
 
-Tym niemniej potocznie mówimy że funkcja jest n-argumentowa".<br/>
+Tym niemniej potocznie mówimy że "funkcja jest n-argumentowa".<br/>
 W rzeczywistosci redukcja aplikacji odbywa się tylko gdy jest odpowiednia liczba argumentów.
 <br/> (czyli w naszym przykładzie `mn 0` się nie redukuje, dopiero `mn 0 3`)
 
@@ -989,7 +991,7 @@ Niektóre funkcje mogą działać dla argumentów różnych typów - czyli mogą
 id x = x
 ```
 
-wyrazamy to przy pomocy tzw. zmiennych typowych
+wyrażamy to przy pomocy tzw. zmiennych typowych
 
 ``` haskell
 id :: a -> a
