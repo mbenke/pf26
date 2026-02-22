@@ -705,7 +705,7 @@ Definicje mogą być rekurencyjne
 
 ``` haskell
 fact n | n <= 1 = 1
-       | n >  1 =  n * fact(n-1)
+       | n >  1 = n * fact(n-1)
 ```
 W programowaniu funkcyjnym rekurencja jest podstawowym mechanizmem sterowania (nie ma instrukcji, zatem nie ma `while`).
 
