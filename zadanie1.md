@@ -24,7 +24,7 @@ S x y z = x z (y z)
 K x y = x
 ```
 
-przez takie definicje rozumiemy "dla dowolnych wyrażeń x,y,z, wyrażenie `S x y z` redukuje się do `x z (y z)`. Takie wyrażenie (kombinator z odpowiednią liczbą argumentów) nazywamy *redeksem*. Kombinator z niewystarczjaącą liczbą argumentów (np. `S K S`) nie jest redeksem. Proces redukcji kończy się, gdy w wyrażeniu nie ma redeksów - mówimy, ze wyrazenie jest w *postaci normalnej*.
+przez takie definicje rozumiemy "dla dowolnych wyrażeń x,y,z, wyrażenie `S x y z` redukuje się do `x z (y z)`. Takie wyrażenie (kombinator z odpowiednią liczbą argumentów) nazywamy *redeksem*. Kombinator z niewystarczającą liczbą argumentów (np. `S K S`) nie jest redeksem. Proces redukcji kończy się, gdy w wyrażeniu nie ma redeksów - mówimy, że wyrażenie jest w *postaci normalnej*.
 
 Na przykład
 
@@ -75,7 +75,7 @@ add = (B :$ S) :$ (B :$ B)
 
 Wyrażenia postaci `((S :$ I) :$ I) :$ ((S :$ I) :$ I)` są mało czytelne.
 
-Napisz funkcję `prettyExpr` która przedstawi swój argument bez zbędnych nawiasów,ze zmiennymi w czytelnej formie np.
+Napisz funkcję `prettyExpr` która przedstawi swój argument bez zbędnych nawiasów, ze zmiennymi w czytelnej formie np.
 
 ```
 ghci> prettyExpr omega
