@@ -5,7 +5,7 @@ author:  Marcin Benke
 date: Wykład 1, 23.02.2026
 ---
 
-# Obietnica
+# Cel
 
 >    Lisp is worth learning for [...] the profound enlightenment experience you will have when you finally get it.<br/>
 > That experience will make you a better programmer for the rest of your days,even if you never actually use Lisp [...]<br/>
@@ -25,6 +25,9 @@ Ten przedmiot da uczestnikom nowe spojrzenie na programowanie i uczyni ich lepsz
 
 Oczywiście wymaga to zaangażowania i wysiłku.
 
+
+Przy okazji (trochę) nauczymy się programować w Haskellu.
+
 ## Dlaczego Haskell?
 
 Programowanie funkcyjne nie jest już niszą akademicką:
@@ -43,7 +46,7 @@ Programowanie funkcyjne nie jest już niszą akademicką:
 - Niemutowalne struktury danych
 - Kompozycjonalność
 
-Wiele języków imperatywnych włącza elementy funkcyjne
+Wiele języków imperatywnych włącza elementy funkcyjne.
 
 ## Trochę Historii
 
@@ -268,6 +271,29 @@ W Javascript napisalibyśmy
 const two = (s, z) => s(s(z))
 ```
 
+## Arytmetyka - dodawanie
+
+Dodawanie: $$(m + n)\ s\ z = m\ s(n\ s\ z)$$
+<!--
+$$(+) = \lambda\ m\ n\ f\ x . m\ f(n\ f\ x)$$
+
+$$2 + 1 = \lambda f x.2 f(1 f x) = \lambda f x.2 f (f x) =
+\lambda f x. f(f (f x)) = 3$$
+-->
+
+Na przykład:
+
+$$(2 + 1)\ s\ z = 2\ s\;(1\ s\ z) = 2\ s\; (s\;z) =s(s(s\; z))  = 3\; s\; z$$
+
+albo:
+
+```
+   (2 + 3) f x = 2 f (3 f x)
+             = f(f(f(f(f(x)))))
+             = 5 f x
+```
+
+
 ## Arytmetyka - mnożenie (z intuicją)
 
 Mnożenie: $(m * n)\ f\ x = m (n\ f) x$
@@ -307,7 +333,7 @@ Kombinator to funkcja, która "kombinuje" swoje argumenty, np.
 
 ``` haskell
 I x = x
-two f x = f(f x)
+two f x = f (f x)
 add m n f x = m f (n f x)
 ```
 
@@ -424,9 +450,9 @@ def even_more():
     result = []
     n = 101
     while len(result) < 10:
-	if n % 2 == 0:
-	    result.append(n)
-	n += 1
+        if n % 2 == 0:
+            result.append(n)
+        n += 1
 
     return result
 ```
@@ -562,12 +588,24 @@ $ ghci
 GHCi, version 9.8.4: https://www.haskell.org/ghc/  :? for help
 
 ghci> 2 * 2
-4
+44
 ghci> :load square.hs
 [1 of 1] Compiling Main             ( square.hs, interpreted )
 Ok, one module loaded.
 ghci> square 3
 9
+```
+Możemy też załadować cały projekt:
+
+```
+$ cabal repl
+...
+Ok, 51 modules loaded.
+ghci> import Solcore.Primitives.Primitives
+ghci> snd primAddWord
+Forall [] ([] :=> TyCon -> [TyCon word [],TyCon -> [TyCon word [],TyCon word []]])
+ghci> pretty it
+"word -> word -> word"
 ```
 
 ## Kompilator
@@ -584,6 +622,22 @@ Linking answer ...
 
 $ ./answer
 42
+```
+albo cały projekt
+```
+$ cabal build
+Configuration is affected by the following files:
+- cabal.project.local
+Build profile: -w ghc-9.8.4 -O1
+In order, the following will be built (use -v for more details):
+ - sol-core-0.0.0.0 (lib) (configuration changed)
+ - sol-core-0.0.0.0 (exe:yule) (dependency rebuilt)
+ - sol-core-0.0.0.0 (exe:sol-core) (dependency rebuilt)
+ - sol-core-0.0.0.0 (test:sol-core-tests) (dependency rebuilt)
+...
+[40 of 51] Compiling Solcore.Frontend.Parser.SolcoreParser
+...
+[3 of 3] Linking .../build/sol-core-tests/sol-core-tests [Library changed]
 ```
 
 ### Czy Haskell jest wolny?
@@ -1166,7 +1220,7 @@ W ramach laboratorium także wyjaśnianie zadań zaliczeniowych.
 * Materiały na https://moodle.mimuw.edu.pl
 * Zadania oddajemy przez moodle (i omawiamy z prowadzącym)
 * Klucz dostępu `PF25g#0n` - gdzie n = numer grupy (np. `PF25g#09`)
-* Strona zapasowa https://github.com/mbenke/pf25
+* Strona zapasowa https://github.com/mbenke/pf26
 
 ## Zasady zaliczania
 
@@ -1196,3 +1250,5 @@ Ponadto student musi umieć objaśnić sposób działania każdego fragmentu odd
 - Zadanie 2: 10p; spóźnienie do 48h 1p; potem 2p za każdy rozpoczęty tydzień;
 - Zadanie 3: 15p; spóźnienie do 24h 1p; do 48h 2p; do 7 dni 3p; powyżej 5p
 - Egzamin 30p
+
+# Pytania ?
