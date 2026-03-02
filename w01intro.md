@@ -590,7 +590,7 @@ $ ghci
 GHCi, version 9.8.4: https://www.haskell.org/ghc/  :? for help
 
 ghci> 2 * 2
-44
+4
 ghci> :load square.hs
 [1 of 1] Compiling Main             ( square.hs, interpreted )
 Ok, one module loaded.
