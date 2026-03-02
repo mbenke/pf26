@@ -47,7 +47,7 @@ ghci> :type +d (+)
 (+) :: Integer -> Integer -> Integer
 ```
 
-Dla wartości przeciązonych, `+d` daje domyślny typ.
+Dla wartości przeciążonych, `+d` daje domyślny typ.
 
 ### Dlaczego typy? (praktycznie)
 
@@ -913,7 +913,7 @@ foo (S c _ b mm xd yd n mn) = S c D b mm xd yd n (mn+1)
 wystarczy
 
 ``` haskell
-foo s = s { stDir = D, stMove = stMove s + 1  }
+foo s = s { stDir = D, stMov = stMov s + 1  }
 ```
 
 ### Etykiety pól - przykład z życia
