@@ -88,6 +88,7 @@ f. wyrażenia parametryzowane:
       | ELet a Exp Exp  -- let var = e1 in e2
 
 deriv :: Eq a => a -> Exp a -> Exp a
+-- deriv "x" e = de / dx
 ```
 
 ## Kombinatory
