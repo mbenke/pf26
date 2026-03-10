@@ -236,7 +236,7 @@ Do zagadnień związanych z testowaniem jeszcze wrócimy.
 Haskell ma bogatą hierarchię klas numerycznych,
 klasyfikującą typy według dostepnych operacji:
 
-```
+``` haskell
 Num
 Real
 Fractional
@@ -246,10 +246,10 @@ RealFrac
 RealFloat
 ```
 
-wygląda to groźnie, ale w praktyce wystarczy znać klasy `Num` oraz `Integral`
+w praktyce wystarczy znać klasy `Num` oraz `Integral`
 i uważać na dzielenie:
 
-```
+``` haskell
 ghci> :t (/)
 (/) :: Fractional a => a -> a -> a
 
@@ -300,6 +300,11 @@ class (Real a, Enum a) => Integral a where
 
 używamy jej gdy chcemy zdefiniować funkcje działające zarówno na `Int` jak i `Integer`
 
+``` haskell
+genericDrop :: Integral i => i -> [a] -> [a]
+drop :: Int -> [a] -> [a]
+```
+
 Funkcji `toInteger` można użyć do konwersji `Int -> Integer`
 
 Funkcji `fromIntegral` można użyć do konwersji `Int` na inne typy
@@ -315,7 +320,31 @@ ghci> sum xs / (fromIntegral (length xs))
 2.0
 ```
 
+# Real
+
+``` haskell
+class (Num a, Ord a) => Real a where
+  toRational :: a -> Rational
+```
+
 **Real** to, wbrew nazwie, liczby wymierne, z metodą `toRational`. O Enum za chwilę.
+
+
+``` haskell
+type Rational = GHC.Real.Ratio Integer
+        -- Defined in ‘GHC.Real’
+
+ghci> import GHC.Real
+ghci> :i Ratio
+data Ratio a = !a :% !a
+        -- Defined in ‘GHC.Real’
+
+ghci> 4 % 6
+2 % 3
+
+ghci> toRational 7
+7 % 1
+```
 
 ## Inne klasy
 
@@ -337,7 +366,7 @@ To zwykle trudniejsze niż `show`, na razie wystarczy nam znać funkcję
 read :: (Read a) => String -> a
 ```
 
-```
+``` haskell
 ghci> read "2" + read "3"
 5
 ```
@@ -612,9 +641,9 @@ data Exp = N Int | Exp :+ Exp | Exp :* Exp
 
 instance Show Exp where
   shows (e1 :+ e2) =
-    shows e1 . showString " + " . show e2
+    shows e1 . showString " + " . shows e2
   shows (e1 :* e2) =
-    shows e1 . showString " * " . show e2
+    shows e1 . showString " * " . shows e2
   shows (N n) = shows n
 
 exp1 = (N 2 :+ N 3) :* N 4
