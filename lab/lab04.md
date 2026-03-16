@@ -7,7 +7,7 @@ data Nat = Zero | S Nat deriving Show
 
 mul :: Nat -> Nat -> Nat
 mul m Zero = Zero
-mul m (S n) = add (mul m n) n
+mul m (S n) = add (mul m n) m
 ```
 
 1. Zapisz i wypróbuj przykłady z wykładu, tudzież
