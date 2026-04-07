@@ -62,6 +62,37 @@ wartości typu `Int`, ale **obliczenie**,<br />
  którego wykonanie da wartość typu `Int` (przepis na uzyskanie wartości typu `Int`);
 - dzięki temu zachowujemy przejrzystość - każde wywołanie da takie samo obliczenie (wczytaj liczbę z stdin).
 
+### (Ułomna) analogia
+
+O obliczeniach IO można myśleć trochę jak o poleceniach shella;
+
+wielokrotne wykonanie tego samgeo obliczenia może dać rózne wyniki
+
+```bash
+$ date -Ins
+2026-03-23T07:28:14,711025908+01:00
+
+$ date -Ins | cut -c 21-29
+095647301
+
+$ date -Ins | cut -c 21-29
+478990456
+```
+
+...ale łączenie obliczeń w Haskellu pozwala na więcej niż "|", bardziej coś na kształt
+
+``` bash
+$ f=$(mktemp) && echo $f && echo "date -Ins" | (cat > $f && chmod +x $f && $f | cut -c 21-29 && rm $f)
+/tmp/tmp.LxXQI7PwWQ
+423448757
+
+$ f=$(mktemp) && echo $f && echo "date -Ins" | (cat > $f && chmod +x $f && $f | cut -c 21-29 && rm $f)
+/tmp/tmp.tQ8nFCHBvI
+791114037
+```
+...ale to też ułomna analogia.
+Wrócimy jeszcze do tego tematu.
+
 ### Funkcja `main`
 Program w Haskellu generuje obliczenie - funkcja `main` jest typu `IO ()`.<br />
 System wykonawczy realizuje obliczenie będące wynikiem `main`.
@@ -73,6 +104,7 @@ Obliczenie to może być dowolnie skomplikowane, ale zaczniemy od bardzo prosteg
 main :: IO ()
 main = putStrLn "Hello!"
 ```
+
 
 ### Uruchamianie
 
