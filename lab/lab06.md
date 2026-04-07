@@ -1,0 +1,60 @@
+# Lenistwo
+
+
+## Strumienie
+1.  Zdefiniuj strumienie liczb naturalnych, parzystych, nieparzystych, pierwszych i liczb Fibonacciego (patrz wykład).
+
+``` haskell
+few = take 5
+few nats
+[0,1,2,3,4]
+
+> few evens
+[0,2,4,6,8]
+
+> few odds
+[1,3,5,7,9]
+
+> take 20 fibs
+[0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181]
+```
+2. Zdefiniuj funkcję `merge` tak, aby
+
+``` haskell
+> take 5 (merge evens odds)
+[0,1,2,3,4]
+```
+3. Zdefiniuj funkcję `inGrowing :: Integer -> [Integer] -> Bool`, która dla danej liczby i rosnącego strumienia liczb rozstrzygnie czy dana liczba wystepuje w strumieniu.
+
+4. Zdefiniuj funkcję `union`, która dla dwóch rosnących strumieni da ich sumę teoriomnogościową. Czy zadziała też dla strumieni niemalejących?
+
+5. Zdefiniuj strumień aproksymacji Newtona dla $\sqrt n$, gdzie kolejne przybliżenie dane jest funkcją
+```
+next :: Double -> Double
+next x = 0.5 * (x + (n / x))
+```
+i użyj go do znalezienia satysfakcjonującego przybliżenia $\sqrt{2}$
+Mogą się przydać funkcje
+
+``` haskell
+iterate :: (a -> a) -> a -> [a]
+dropWhile :: (a -> Bool) -> [a] -> [a]
+```
+
+6. Przypomnijmy funkcję nondec:
+
+``` haskell
+nondec xs = and(map leq pairs) where
+  leq (x,y) = x <= y
+  pairs = zip xs (tail xs)
+```
+
+jaki wynik da ona dla listy pustej? Dlaczego?
+
+7. Ponownie zaimplementuj swój program interaktywny z poprzednich zajęć ("chodzenie po mapie"),
+zamiast IO używając strumieni (funkcja typu `[Char] -> [Char]` opakowana w `interact`)
+
+``` haskell
+main = interact mymain
+mymain :: [Char] -> [Char]
+```
