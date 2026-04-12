@@ -462,7 +462,7 @@ sumwith v (x:xs) = (sumwith $! (v+x)) xs
   sumwith 0 [1,2,3]
 = (sumwith $! (0+1)) [2,3] = sumwith 1  [2,3]
 = (sumwith $! (1+2)) [3] = sumwith 3 [3]
-= (sumwith $! (3+3)) [] sumwith 6 []
+= (sumwith $! (3+3)) [] = sumwith 6 []
 = 6
 ```
 
@@ -473,7 +473,7 @@ Możemy uogólnić ten schemat tworząc gorliwy wariant funkcji foldl
 ``` haskell
 foldl :: (a -> b -> a) -> a -> [b] -> a
 foldl f v [] = v
-foldl f v (x:xs) = (foldl f (f v x)) xss
+foldl f v (x:xs) = (foldl f (f v x)) xs
 
 foldl’ :: (a -> b -> a) -> a -> [b] -> a
 foldl’ f v [] = v
@@ -599,7 +599,7 @@ Na przykład
 
 ``` haskell
 fact :: Int -> Int
-fact n = foldr (*) 0 [1..n]
+fact n = foldr (*) 1 [1..n]
 ```
 
 wydawałoby się, że ta funkcja jest bardzo nieefektywna - buduje listę, a potem ją konsumuje.
