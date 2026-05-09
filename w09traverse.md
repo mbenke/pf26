@@ -459,6 +459,13 @@ Nawiasy klamrowe `{ }` wskazują bieżącą pozycję.
 
 ![Loc = (struct, cxt) — suwak po wywołaniu left](w09zipper.svg)
 
+``` haskell
+ghci> struct = Bin (Tip 1) (Tip 2) :: Tree Int
+ghci> sibling = Bin (Tip 11) (Tip 11) :: Tree Int
+ghci> up (struct, L Top sibling)
+(Bin (Bin (Tip 1) (Tip 2)) (Bin (Tip 11) (Tip 11)),Top)
+```
+
 ## Implementacja
 
 Naiwny kontekst (od góry do dołu)

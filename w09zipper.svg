@@ -69,7 +69,7 @@
 <text class="code" x="20" y="314">up    (t, L c r)   = (Bin t r, c)</text>
 
 <!-- ── Divider ── -->
-<line class="div" x1="338" y1="36" x2="338" y2="322"/>
+<line class="div" x1="338" y1="36" x2="338" y2="292"/>
 
 <!-- ════════════════ RIGHT PANEL: Loc decomposition (345–695) ════════════════ -->
 
@@ -78,7 +78,7 @@
 <text class="lbl" x="590" y="42" text-anchor="middle">cxt  (ścieżka do korzenia)</text>
 
 <!-- Vertical divider inside right panel -->
-<line class="div" x1="508" y1="36" x2="508" y2="290"/>
+<line class="div" x1="508" y1="36" x2="508" y2="260"/>
 
 <!-- ── struct: Bin (Tip 1) (Tip 2) ── -->
 <line class="edge" x1="410" y1="80"  x2="378" y2="128"/>
@@ -101,11 +101,11 @@
 <line stroke="#BCD" stroke-width="1" x1="535" y1="82" x2="673" y2="82"/>
 
 <!-- parent field -->
-<text class="lbl" x="555" y="97">parent cxt:</text>
+<text class="lbl" x="535" y="97">parent cxt:</text>
 <text x="555" y="115" font-weight="bold" fill="#555">Top</text>
 
 <!-- right-sibling field -->
-<text class="lbl" x="622" y="97">prawy brat:</text>
+<text class="lbl" x="612" y="97">prawy brat:</text>
 <!-- arrow downward to sibling tree -->
 <line class="edge" x1="645" y1="118" x2="645" y2="142"/>
 <polygon points="640,142 645,150 650,142" fill="#444"/>
@@ -133,7 +133,7 @@
 <text class="lbl" x="363" y="324">focus</text>
 <rect class="e-bin" x="405" y="314" width="14" height="12" rx="2"/>
 <text class="lbl" x="423" y="324">węzeł kontekstu</text>
-<rect class="e-tip" x="513" y="314" width="14" height="12" rx="2"/>
-<text class="lbl" x="531" y="324">liść</text>
+<rect class="e-tip" x="533" y="314" width="14" height="12" rx="2"/>
+<text class="lbl" x="551" y="324">liść</text>
 
 </svg>
