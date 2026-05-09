@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="936" height="370" viewBox="0 0 720 285" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    text  { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 12px; fill: #111; }
+    .ttl  { font-size: 13px; font-weight: bold; }
+    .hdr  { font-size: 12px; font-weight: bold; fill: #1A5276; }
+    .sub  { font-size: 10px; font-style: italic; fill: #666; }
+    .mono { font-family: "DejaVu Sans Mono", monospace; font-size: 10px; fill: #333; }
+    .c-bin  { fill: #AED6F1; stroke: #2471A3; stroke-width: 1.8; }
+    .c-tip  { fill: #A9DFBF; stroke: #1E8449; stroke-width: 1.5; }
+    .c-hole { fill: #FDFEFE; stroke: #C0392B; stroke-width: 2; stroke-dasharray: 5,3; }
+    .c-foc  { fill: #FAD7A0; stroke: #E67E22; stroke-width: 2; }
+    .c-cxt  { fill: #EBF5FB; stroke: #2471A3; stroke-width: 1.5; }
+    .edge   { stroke: #555; stroke-width: 1.5; }
+    .dedge  { stroke: #C0392B; stroke-width: 1.5; stroke-dasharray: 5,3; }
+    .div    { stroke: #CCC; stroke-width: 1; stroke-dasharray: 5,4; }
+  </style>
+</defs>
+
+<rect width="720" height="285" fill="white" stroke="#ddd"/>
+
+<!-- Title -->
+<text class="ttl" x="360" y="16" text-anchor="middle">Naiwny vs lepszy kontekst — ognisko: lewe poddrzewo Bin(T1,T2)</text>
+
+<!-- Divider -->
+<line class="div" x1="358" y1="23" x2="358" y2="278"/>
+
+<!-- ═══════════════════════════════════════
+     LEFT PANEL — NCxt (naïve, top-down)
+     ═══════════════════════════════════════ -->
+
+<text class="hdr" x="176" y="30" text-anchor="middle">Naiwny NCxt a  (od góry do dołu)</text>
+<text class="mono" x="176" y="42" text-anchor="middle">NCxt = Hole | Tip a | Bin (NCxt a) (NCxt a)</text>
+
+<!-- Edges of NCxt tree -->
+<!-- root → Hole (dashed, red) -->
+<line class="dedge" x1="176" y1="88" x2="112" y2="114"/>
+<!-- root → right Bin -->
+<line class="edge"  x1="176" y1="88" x2="248" y2="114"/>
+<!-- right Bin → T3, T4 -->
+<line class="edge"  x1="248" y1="158" x2="220" y2="192"/>
+<line class="edge"  x1="248" y1="158" x2="276" y2="192"/>
+
+<!-- Root Bin node -->
+<circle class="c-bin" cx="176" cy="75" r="22"/>
+<text x="176" y="80" text-anchor="middle">Bin</text>
+
+<!-- HOLE — dashed box where the focus was -->
+<rect class="c-hole" x="72" y="115" width="80" height="38" rx="5"/>
+<text x="112" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#C0392B">Hole</text>
+<text x="112" y="144" text-anchor="middle" font-size="9" fill="#C0392B">ognisko</text>
+
+<!-- Right subtree Bin(T3,T4) — normal -->
+<circle class="c-bin" cx="248" cy="136" r="22"/>
+<text x="248" y="141" text-anchor="middle">Bin</text>
+
+<rect class="c-tip" x="200" y="192" width="40" height="24" rx="4"/>
+<text x="220" y="209" text-anchor="middle">T:3</text>
+
+<rect class="c-tip" x="256" y="192" width="40" height="24" rx="4"/>
+<text x="276" y="209" text-anchor="middle">T:4</text>
+
+<!-- Focused subtree shown separately (grayed out to the side) -->
+<text class="sub" x="40" y="172" fill="#E67E22">fokus:</text>
+<circle class="c-foc" cx="40" cy="192" r="18"/>
+<text x="40" y="197" text-anchor="middle" font-size="10">Bin</text>
+<line stroke="#E67E22" stroke-width="1" x1="28" y1="210" x2="18" y2="225"/>
+<line stroke="#E67E22" stroke-width="1" x1="52" y1="210" x2="62" y2="225"/>
+<rect x="4"  y="225" width="28" height="18" rx="3" fill="#FAD7A0" stroke="#E67E22" stroke-width="1"/>
+<text x="18" y="238" text-anchor="middle" font-size="9">T:1</text>
+<rect x="48" y="225" width="28" height="18" rx="3" fill="#FAD7A0" stroke="#E67E22" stroke-width="1"/>
+<text x="62" y="238" text-anchor="middle" font-size="9">T:2</text>
+
+<!-- Summary -->
+<text class="sub" x="176" y="228" text-anchor="middle">NCxt = Bin <tspan font-weight="bold" fill="#C0392B">Hole</tspan> (Bin T3 T4)</text>
+<text class="sub" x="176" y="240" text-anchor="middle">ta sama forma co Tree — ścieżka</text>
+<text class="sub" x="176" y="252" text-anchor="middle">od korzenia do dziury: O(głębokość)</text>
+
+<!-- ═══════════════════════════════════════
+     RIGHT PANEL — Cxt (proper, bottom-up)
+     ═══════════════════════════════════════ -->
+
+<text class="hdr" x="540" y="30" text-anchor="middle">Lepszy Cxt a  (od dołu do góry)</text>
+<text class="mono" x="540" y="42" text-anchor="middle">Cxt = Top | L (Cxt a) (Tree a) | R (Tree a) (Cxt a)</text>
+
+<!-- L-frame card -->
+<rect class="c-cxt" x="368" y="52" width="338" height="152" rx="8"/>
+
+<!-- "L" constructor label -->
+<text x="392" y="78" font-size="22" font-weight="bold" fill="#1A5276">L</text>
+
+<!-- vertical separator inside card -->
+<line stroke="#AED6F1" stroke-width="1" x1="420" y1="58" x2="420" y2="198"/>
+
+<!-- Left side: fields -->
+<text class="sub" x="432" y="72" fill="#555">kierunek:</text>
+<text x="432" y="86" font-size="12" font-weight="bold">poszliśmy w lewo</text>
+
+<text class="sub" x="432" y="104" fill="#555">parent cxt:</text>
+<rect x="432" y="108" width="50" height="22" rx="4" fill="#D6EAF8" stroke="#2471A3" stroke-width="1.2"/>
+<text x="457" y="124" text-anchor="middle" font-size="11" font-weight="bold">Top</text>
+
+<text class="sub" x="432" y="148" fill="#555">prawy brat:</text>
+
+<!-- Sibling tree Bin(T3,T4) inside card -->
+<line class="edge" x1="600" y1="100" x2="572" y2="127"/>
+<line class="edge" x1="600" y1="100" x2="628" y2="127"/>
+<circle class="c-bin" cx="600" cy="88" r="18"/>
+<text x="600" y="93" text-anchor="middle" font-size="10">Bin</text>
+<rect class="c-tip" x="554" y="127" width="36" height="22" rx="4"/>
+<text x="572" y="143" text-anchor="middle" font-size="10">T:3</text>
+<rect class="c-tip" x="610" y="127" width="36" height="22" rx="4"/>
+<text x="628" y="143" text-anchor="middle" font-size="10">T:4</text>
+
+<!-- Focused subtree shown separately -->
+<text class="sub" x="432" y="175" fill="#E67E22">struct (fokus) przechowywany oddzielnie w Loc</text>
+
+<!-- Summary -->
+<text class="sub" x="540" y="228" text-anchor="middle">Cxt = L Top (Bin T3 T4)</text>
+<text class="sub" x="540" y="240" text-anchor="middle">Ślad od ogniska do korzenia</text>
+<text class="sub" x="540" y="252" text-anchor="middle">nawigacja left/right/up: O(1)</text>
+
+<!-- Code footer -->
+<rect fill="#F8F9FA" stroke="#DDD" stroke-width="1" x="18" y="260" width="684" height="20" rx="3"/>
+<text class="mono" x="360" y="274" text-anchor="middle">
+  left (Bin l r, c) = (l, L c r)   — O(1)      up (t, L c r) = (Bin t r, c)   — O(1)
+</text>
+
+</svg>

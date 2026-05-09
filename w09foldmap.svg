@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="910" height="397" viewBox="0 0 700 305" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    text  { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 12px; fill: #111; }
+    .ttl  { font-size: 13px; font-weight: bold; }
+    .sub  { font-size: 10px; font-style: italic; fill: #666; }
+    .mono { font-family: "DejaVu Sans Mono", monospace; font-size: 11px; fill: #222; }
+    .c-bin { fill: #AED6F1; stroke: #2471A3; stroke-width: 1.8; }
+    .c-tip { fill: #A9DFBF; stroke: #1E8449; stroke-width: 1.5; }
+    .c-op  { fill: #FAD7A0; stroke: #E67E22; stroke-width: 2; }
+    .edge  { stroke: #555; stroke-width: 1.5; }
+  </style>
+</defs>
+
+<rect width="700" height="305" fill="white" stroke="#ddd"/>
+
+<!-- Title -->
+<text class="ttl" x="350" y="18" text-anchor="middle">foldMap — mapuj każdy liść przez f, składaj wyniki przez &lt;&gt;</text>
+<text class="sub"  x="350" y="30" text-anchor="middle">etree4 = Bin (Bin (Tip 1) (Tip 2)) (Bin (Tip 3) (Tip 4))</text>
+
+<!-- Column headers -->
+<text class="sub" x="175" y="44" text-anchor="middle">ETree Int (wejście)</text>
+<text class="sub" x="530" y="44" text-anchor="middle">foldMap Sum — wartość w każdym węźle</text>
+
+<!-- ══════════════ LEFT TREE  (all y shifted +22 vs original) ══════════════ -->
+
+<line class="edge" x1="175" y1="97"  x2="105" y2="131"/>
+<line class="edge" x1="175" y1="97"  x2="245" y2="131"/>
+<line class="edge" x1="105" y1="175" x2="68"  y2="220"/>
+<line class="edge" x1="105" y1="175" x2="142" y2="220"/>
+<line class="edge" x1="245" y1="175" x2="208" y2="220"/>
+<line class="edge" x1="245" y1="175" x2="282" y2="220"/>
+
+<circle class="c-bin" cx="175" cy="75"  r="22"/>
+<text x="175" y="80"  text-anchor="middle">Bin</text>
+
+<circle class="c-bin" cx="105" cy="153" r="22"/>
+<text x="105" y="158" text-anchor="middle">Bin</text>
+
+<circle class="c-bin" cx="245" cy="153" r="22"/>
+<text x="245" y="158" text-anchor="middle">Bin</text>
+
+<rect class="c-tip" x="46"  y="220" width="44" height="26" rx="4"/>
+<text x="68"  y="238" text-anchor="middle">1</text>
+
+<rect class="c-tip" x="120" y="220" width="44" height="26" rx="4"/>
+<text x="142" y="238" text-anchor="middle">2</text>
+
+<rect class="c-tip" x="186" y="220" width="44" height="26" rx="4"/>
+<text x="208" y="238" text-anchor="middle">3</text>
+
+<rect class="c-tip" x="260" y="220" width="44" height="26" rx="4"/>
+<text x="282" y="238" text-anchor="middle">4</text>
+
+<text class="sub" x="68"  y="255" text-anchor="middle">Tip</text>
+<text class="sub" x="142" y="255" text-anchor="middle">Tip</text>
+<text class="sub" x="208" y="255" text-anchor="middle">Tip</text>
+<text class="sub" x="282" y="255" text-anchor="middle">Tip</text>
+
+<!-- ══════════════ ARROW ══════════════ -->
+<line stroke="#555" stroke-width="1.5" x1="316" y1="153" x2="373" y2="153"/>
+<polygon points="369,148 381,153 369,158" fill="#555"/>
+<text class="mono" x="347" y="146" text-anchor="middle" font-size="10" font-weight="bold">foldMap</text>
+<text class="mono" x="347" y="170" text-anchor="middle" font-size="10" font-weight="bold">Sum</text>
+
+<!-- ══════════════ RIGHT TREE ══════════════ -->
+
+<line class="edge" x1="530" y1="100" x2="460" y2="128"/>
+<line class="edge" x1="530" y1="100" x2="600" y2="128"/>
+<line class="edge" x1="460" y1="178" x2="420" y2="220"/>
+<line class="edge" x1="460" y1="178" x2="500" y2="220"/>
+<line class="edge" x1="600" y1="178" x2="560" y2="220"/>
+<line class="edge" x1="600" y1="178" x2="640" y2="220"/>
+
+<!-- <> nodes with accumulated sum -->
+<circle class="c-op" cx="530" cy="75"  r="25"/>
+<text x="530" y="70"  text-anchor="middle" font-size="11" font-weight="bold">&lt;&gt;</text>
+<text x="530" y="85"  text-anchor="middle" font-size="10">Sum 10</text>
+
+<circle class="c-op" cx="460" cy="153" r="25"/>
+<text x="460" y="148" text-anchor="middle" font-size="11" font-weight="bold">&lt;&gt;</text>
+<text x="460" y="163" text-anchor="middle" font-size="10">Sum 3</text>
+
+<circle class="c-op" cx="600" cy="153" r="25"/>
+<text x="600" y="148" text-anchor="middle" font-size="11" font-weight="bold">&lt;&gt;</text>
+<text x="600" y="163" text-anchor="middle" font-size="10">Sum 7</text>
+
+<!-- Sum leaf nodes -->
+<rect class="c-tip" x="393" y="220" width="54" height="26" rx="4"/>
+<text x="420" y="238" text-anchor="middle" font-size="11">Sum 1</text>
+
+<rect class="c-tip" x="473" y="220" width="54" height="26" rx="4"/>
+<text x="500" y="238" text-anchor="middle" font-size="11">Sum 2</text>
+
+<rect class="c-tip" x="533" y="220" width="54" height="26" rx="4"/>
+<text x="560" y="238" text-anchor="middle" font-size="11">Sum 3</text>
+
+<rect class="c-tip" x="613" y="220" width="54" height="26" rx="4"/>
+<text x="640" y="238" text-anchor="middle" font-size="11">Sum 4</text>
+
+<text class="sub" x="420" y="255" text-anchor="middle">= f 1</text>
+<text class="sub" x="500" y="255" text-anchor="middle">= f 2</text>
+<text class="sub" x="560" y="255" text-anchor="middle">= f 3</text>
+<text class="sub" x="640" y="255" text-anchor="middle">= f 4</text>
+
+<!-- ══════════════ CODE FOOTER ══════════════ -->
+<rect fill="#F8F9FA" stroke="#DDD" stroke-width="1" x="25" y="264" width="650" height="34" rx="4"/>
+<text class="mono" x="35" y="279">foldMap f (Tip x)   = f x                       -- f do każdego liścia</text>
+<text class="mono" x="35" y="293">foldMap f (Bin l r) = foldMap f l &lt;&gt; foldMap f r  -- składaj od dołu</text>
+
+</svg>

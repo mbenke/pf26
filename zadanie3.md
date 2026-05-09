@@ -173,3 +173,5 @@ Dotyczy to także kodu wygenerowanego/zasugerowanego przez narządzia AI i pokre
 
 Ponadto student musi umieć objaśnić sposób działania każdego fragmentu oddanego kodu
 (wyjaśnienia typu "Znalazłem na Stackoverflow/Copilot mi podpowiedział i działa ale nie wiem jak" itp => 0p).
+
+Nietrywialne funkcje powinny być opatrzone komentarzem dokumentującym ich intencję.

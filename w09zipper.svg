@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="910" height="429" viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    text { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 13px; fill: #111; }
+    .title  { font-size: 14px; font-weight: bold; }
+    .lbl    { font-size: 11px; font-style: italic; fill: #555; }
+    .code   { font-family: "DejaVu Sans Mono", monospace; font-size: 11px; fill: #222; }
+    .e-bin  { fill: #AED6F1; stroke: #1A5276; stroke-width: 1.5; }
+    .e-foc  { fill: #F9CA74; stroke: #D35400; stroke-width: 2; }
+    .e-tip  { fill: #A9DFBF; stroke: #1E8449; stroke-width: 1.5; }
+    .e-cxt  { fill: #EBF5FB; stroke: #2980B9; stroke-width: 1.5; }
+    .edge   { stroke: #444; stroke-width: 1.5; fill: none; }
+    .fbox   { fill: #FFF8E1; stroke: #F39C12; stroke-width: 2; stroke-dasharray: 6,3; }
+    .div    { stroke: #CCC; stroke-width: 1; stroke-dasharray: 5,4; }
+  </style>
+</defs>
+
+<!-- Background -->
+<rect width="700" height="330" fill="white" stroke="#ddd" stroke-width="1"/>
+
+<!-- ── Title ── -->
+<text class="title" x="350" y="22" text-anchor="middle">
+  Suwak po: left it — stan: (Bin {Bin (Tip 1) (Tip 2)} (Bin (Tip 11) (Tip 11)))
+</text>
+
+<!-- ════════════════ LEFT PANEL: pełne drzewo (0–330) ════════════════ -->
+<text class="lbl" x="165" y="42" text-anchor="middle">pełne drzewo</text>
+
+<!-- Focus highlight box (behind nodes) -->
+<rect class="fbox" x="42" y="122" width="144" height="143" rx="8"/>
+<text class="lbl" x="114" y="278" text-anchor="middle" fill="#C05000">focus</text>
+
+<!-- Edges – full tree -->
+<line class="edge" x1="165" y1="80"  x2="105" y2="132"/>
+<line class="edge" x1="165" y1="80"  x2="255" y2="132"/>
+<line class="edge" x1="105" y1="172" x2="75"  y2="218"/>
+<line class="edge" x1="105" y1="172" x2="140" y2="218"/>
+<line class="edge" x1="255" y1="172" x2="225" y2="218"/>
+<line class="edge" x1="255" y1="172" x2="285" y2="218"/>
+
+<!-- Root Bin -->
+<circle class="e-bin" cx="165" cy="68" r="22"/>
+<text x="165" y="73" text-anchor="middle">Bin</text>
+
+<!-- Left Bin – focus -->
+<circle class="e-foc" cx="105" cy="155" r="22"/>
+<text x="105" y="160" text-anchor="middle">Bin</text>
+
+<!-- Right Bin – context -->
+<circle class="e-bin" cx="255" cy="155" r="22"/>
+<text x="255" y="160" text-anchor="middle">Bin</text>
+
+<!-- Leaves -->
+<rect class="e-tip" x="53"  y="218" width="44" height="26" rx="4"/>
+<text x="75"  y="236" text-anchor="middle">T:1</text>
+
+<rect class="e-tip" x="118" y="218" width="44" height="26" rx="4"/>
+<text x="140" y="236" text-anchor="middle">T:2</text>
+
+<rect class="e-tip" x="203" y="218" width="44" height="26" rx="4"/>
+<text x="225" y="236" text-anchor="middle">T:11</text>
+
+<rect class="e-tip" x="263" y="218" width="44" height="26" rx="4"/>
+<text x="285" y="236" text-anchor="middle">T:11</text>
+
+<!-- Navigation code -->
+<text class="code" x="20" y="298">left  (Bin l r, c) = (l, L c r)</text>
+<text class="code" x="20" y="314">up    (t, L c r)   = (Bin t r, c)</text>
+
+<!-- ── Divider ── -->
+<line class="div" x1="338" y1="36" x2="338" y2="322"/>
+
+<!-- ════════════════ RIGHT PANEL: Loc decomposition (345–695) ════════════════ -->
+
+<!-- Section labels -->
+<text class="lbl" x="410" y="42" text-anchor="middle">struct  (bieżące poddrzewo)</text>
+<text class="lbl" x="590" y="42" text-anchor="middle">cxt  (ścieżka do korzenia)</text>
+
+<!-- Vertical divider inside right panel -->
+<line class="div" x1="508" y1="36" x2="508" y2="290"/>
+
+<!-- ── struct: Bin (Tip 1) (Tip 2) ── -->
+<line class="edge" x1="410" y1="80"  x2="378" y2="128"/>
+<line class="edge" x1="410" y1="80"  x2="442" y2="128"/>
+
+<circle class="e-foc" cx="410" cy="68" r="22"/>
+<text x="410" y="73" text-anchor="middle">Bin</text>
+
+<rect class="e-tip" x="356" y="128" width="44" height="26" rx="4"/>
+<text x="378" y="146" text-anchor="middle">T:1</text>
+
+<rect class="e-tip" x="420" y="128" width="44" height="26" rx="4"/>
+<text x="442" y="146" text-anchor="middle">T:2</text>
+
+<!-- ── cxt: L Top (Bin (Tip 11) (Tip 11)) ── -->
+
+<!-- L constructor box -->
+<rect class="e-cxt" x="520" y="52" width="165" height="100" rx="8"/>
+<text x="602" y="74" text-anchor="middle" font-size="16" font-weight="bold" fill="#1A5276">L</text>
+<line stroke="#BCD" stroke-width="1" x1="535" y1="82" x2="673" y2="82"/>
+
+<!-- parent field -->
+<text class="lbl" x="555" y="97">parent cxt:</text>
+<text x="555" y="115" font-weight="bold" fill="#555">Top</text>
+
+<!-- right-sibling field -->
+<text class="lbl" x="622" y="97">prawy brat:</text>
+<!-- arrow downward to sibling tree -->
+<line class="edge" x1="645" y1="118" x2="645" y2="142"/>
+<polygon points="640,142 645,150 650,142" fill="#444"/>
+
+<!-- Sibling tree: Bin (Tip 11) (Tip 11) -->
+<line class="edge" x1="645" y1="173" x2="618" y2="210"/>
+<line class="edge" x1="645" y1="173" x2="672" y2="210"/>
+
+<circle class="e-bin" cx="645" cy="162" r="22"/>
+<text x="645" y="167" text-anchor="middle">Bin</text>
+
+<rect class="e-tip" x="596" y="210" width="44" height="26" rx="4"/>
+<text x="618" y="228" text-anchor="middle">T:11</text>
+
+<rect class="e-tip" x="650" y="210" width="44" height="26" rx="4"/>
+<text x="672" y="228" text-anchor="middle">T:11</text>
+
+<!-- Reconstruction note -->
+<text class="code" x="345" y="270">up: Bin struct (prawy brat)</text>
+<text class="code" x="345" y="286">  = Bin (Bin T1 T2) (Bin T11 T11)</text>
+<text class="lbl"  x="345" y="305">parent cxt = Top → dotarliśmy do korzenia</text>
+
+<!-- ── Legend ── -->
+<rect class="e-foc" x="345" y="314" width="14" height="12" rx="2"/>
+<text class="lbl" x="363" y="324">focus</text>
+<rect class="e-bin" x="405" y="314" width="14" height="12" rx="2"/>
+<text class="lbl" x="423" y="324">węzeł kontekstu</text>
+<rect class="e-tip" x="513" y="314" width="14" height="12" rx="2"/>
+<text class="lbl" x="531" y="324">liść</text>
+
+</svg>
