@@ -6,7 +6,7 @@ date: Wykład 12
 ---
 
 
-# Wykład 10 - parsery, łączenie monad
+# Wykład 12 - parsery, łączenie monad
 
 **Plan**
 
