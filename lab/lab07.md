@@ -64,7 +64,7 @@ second :: (b -> d) -> (a,b) -> (a,d)
 
 Napisz `instance Applicative ETree`
 
-Metodę `<*>` można napisać przez indukcję po pierwszym bądź drugiom argumencie, ewentualnie obu naraz.<br/>
+Metodę `<*>` można napisać przez indukcję po pierwszym bądź drugim argumencie, ewentualnie obu naraz.<br/>
 Porównaj te implementacje. Ile różnych funkcji potrafisz napisać?
 
 Niech
